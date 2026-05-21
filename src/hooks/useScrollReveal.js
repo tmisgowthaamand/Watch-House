@@ -16,16 +16,13 @@ const useScrollReveal = () => {
     const observerRef = useRef(null);
 
     useEffect(() => {
-        // Disconnect previous observer on re-renders
-        if (observerRef.current) observerRef.current.disconnect();
-
         const options = {
             root: null,
-            rootMargin: '0px 0px -60px 0px', // trigger 60px before entering viewport
-            threshold: 0.08, // 8% visible triggers animation
+            rootMargin: '0px 0px -60px 0px',
+            threshold: 0.08,
         };
 
-        const handleIntersect = (entries) => {
+        const handleIntersect = (entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const el = entry.target;
@@ -35,33 +32,51 @@ const useScrollReveal = () => {
                         el.classList.add('revealed');
                     }, Number(delay));
 
-                    observerRef.current?.unobserve(el); // animate only once
+                    observer.unobserve(el);
                 }
             });
         };
 
         observerRef.current = new IntersectionObserver(handleIntersect, options);
 
-        // Observe all revealable elements
-        const selectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-stagger';
-        const elements = document.querySelectorAll(selectors);
-        elements.forEach((el) => observerRef.current.observe(el));
-
-        // For stagger containers, tag children with incremental delays
-        const staggerContainers = document.querySelectorAll('.reveal-stagger');
-        staggerContainers.forEach((container) => {
-            const children = container.children;
-            Array.from(children).forEach((child, i) => {
-                child.classList.add('reveal');
-                child.dataset.delay = String(i * 100); // 100ms stagger per child
-                observerRef.current.observe(child);
+        const observeElements = () => {
+            const selectors = '.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .reveal-scale:not(.revealed), .reveal-stagger';
+            const elements = document.querySelectorAll(selectors);
+            elements.forEach((el) => {
+                if (el.classList.contains('reveal-stagger')) {
+                    const children = el.children;
+                    Array.from(children).forEach((child, i) => {
+                        if (!child.classList.contains('revealed')) {
+                            child.classList.add('reveal');
+                            child.dataset.delay = String(i * 100);
+                            observerRef.current.observe(child);
+                        }
+                    });
+                }
+                observerRef.current.observe(el);
             });
+        };
+
+        observeElements();
+
+        const mutationObserver = new MutationObserver((mutations) => {
+            let shouldReObserve = false;
+            for (const mutation of mutations) {
+                if (mutation.addedNodes.length > 0) {
+                    shouldReObserve = true;
+                    break;
+                }
+            }
+            if (shouldReObserve) observeElements();
         });
+
+        mutationObserver.observe(document.body, { childList: true, subtree: true });
 
         return () => {
             if (observerRef.current) observerRef.current.disconnect();
+            mutationObserver.disconnect();
         };
-    });
+    }, []);
 };
 
 export default useScrollReveal;

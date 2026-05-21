@@ -74,18 +74,32 @@ function App() {
   useScrollReveal();
 
   useEffect(() => {
+    let animationFrameId;
+    let isTicking = false;
+    let mouseX = 0, mouseY = 0;
+
     const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5);
-      const y = (clientY / window.innerHeight - 0.5);
-      document.documentElement.style.setProperty('--mx', `${x * 15}px`);
-      document.documentElement.style.setProperty('--my', `${y * 15}px`);
-      document.documentElement.style.setProperty('--mx-slow', `${x * 8}px`);
-      document.documentElement.style.setProperty('--my-slow', `${y * 8}px`);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!isTicking) {
+        animationFrameId = requestAnimationFrame(() => {
+          const x = (mouseX / window.innerWidth - 0.5);
+          const y = (mouseY / window.innerHeight - 0.5);
+          document.documentElement.style.setProperty('--mx', `${x * 15}px`);
+          document.documentElement.style.setProperty('--my', `${y * 15}px`);
+          document.documentElement.style.setProperty('--mx-slow', `${x * 8}px`);
+          document.documentElement.style.setProperty('--my-slow', `${y * 8}px`);
+          isTicking = false;
+        });
+        isTicking = true;
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
