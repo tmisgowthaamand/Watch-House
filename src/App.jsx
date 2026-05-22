@@ -103,27 +103,51 @@ function App() {
       observer = new IntersectionObserver(handleIntersect, options);
 
       const observeElements = () => {
-        const selectors = '.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .reveal-scale:not(.revealed), .reveal-stagger';
-        document.querySelectorAll(selectors).forEach(el => {
+        // Phase 1: READ - collect all elements without triggering writes
+        const selectors = '.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .reveal-scale:not(.revealed), .reveal-stagger:not([data-stagger-init])';
+        const elements = document.querySelectorAll(selectors);
+        const toObserve = [];
+        const staggerWrites = [];
+
+        for (let j = 0; j < elements.length; j++) {
+          const el = elements[j];
           if (el.classList.contains('reveal-stagger')) {
             const children = el.children;
             for (let i = 0; i < children.length; i++) {
               if (!children[i].classList.contains('revealed')) {
-                children[i].classList.add('reveal');
-                children[i].dataset.delay = String(i * 100);
-                observer.observe(children[i]);
+                staggerWrites.push({ el: children[i], delay: i * 100 });
               }
             }
+            staggerWrites.push({ el, attr: true }); // mark as initialized
           }
-          observer.observe(el);
-        });
+          toObserve.push(el);
+        }
+
+        // Phase 2: WRITE - batch all DOM mutations in a single rAF
+        if (staggerWrites.length > 0 || toObserve.length > 0) {
+          requestAnimationFrame(() => {
+            for (let k = 0; k < staggerWrites.length; k++) {
+              const item = staggerWrites[k];
+              if (item.attr) {
+                item.el.setAttribute('data-stagger-init', '1');
+              } else {
+                item.el.classList.add('reveal');
+                item.el.dataset.delay = String(item.delay);
+                observer.observe(item.el);
+              }
+            }
+            for (let k = 0; k < toObserve.length; k++) {
+              observer.observe(toObserve[k]);
+            }
+          });
+        }
       };
 
       observeElements();
 
       mutationObs = new MutationObserver(() => {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(observeElements, 400);
+        debounceTimer = setTimeout(observeElements, 800);
       });
       mutationObs.observe(document.body, { childList: true, subtree: true });
     };

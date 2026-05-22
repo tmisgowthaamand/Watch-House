@@ -118,6 +118,25 @@
       object-fit: cover;
       object-position: center;
     }
+
+    /* Scroll-reveal initial state - prevents FOUC when async CSS loads */
+    .reveal, .reveal-left, .reveal-right, .reveal-scale {
+      opacity: 0;
+    }
+    .reveal.revealed, .reveal-left.revealed, .reveal-right.revealed, .reveal-scale.revealed {
+      opacity: 1;
+    }
+
+    /* Content-visibility for below-fold sections */
+    .footer, .house-fav-section, .highlighted-houses-section,
+    .point-of-origin-section, .press-section, .split-cards-section,
+    .wh-home-wrapper {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 900px;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    picture { display: contents; }
   </style>
 </head>
 
