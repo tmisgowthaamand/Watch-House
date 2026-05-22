@@ -59,6 +59,7 @@ const useScrollReveal = () => {
 
         observeElements();
 
+        let debounceTimer;
         const mutationObserver = new MutationObserver((mutations) => {
             let shouldReObserve = false;
             for (const mutation of mutations) {
@@ -67,7 +68,10 @@ const useScrollReveal = () => {
                     break;
                 }
             }
-            if (shouldReObserve) observeElements();
+            if (shouldReObserve) {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(observeElements, 200);
+            }
         });
 
         mutationObserver.observe(document.body, { childList: true, subtree: true });
