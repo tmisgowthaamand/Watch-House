@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import Hero from '../components/Hero';
-import HouseFavourites from '../components/HouseFavourites';
 import OptimizedImage from '../components/OptimizedImage';
 import { ArrowRight } from 'lucide-react';
+
+const HouseFavourites = lazy(() => import('../components/HouseFavourites'));
 
 const houses = [
   { name: 'Northcote Road.', code: 'SW11 1NZ', video: 'https://watchhouse.com/cdn/shop/videos/c/vp/2a5bc27ddd424179b7fce2ef32926456/2a5bc27ddd424179b7fce2ef32926456.HD-1080p-7.2Mbps-81873238.mp4' },
@@ -15,6 +16,7 @@ const houses = [
 
 const Home = () => {
   const [activeHouse, setActiveHouse] = useState(0);
+  const [videoInView, setVideoInView] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +25,18 @@ const Home = () => {
       setActiveHouse((prev) => (prev + 1) % houses.length);
     }, 6000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVideoInView(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '400px' });
+    observer.observe(videoRef.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -82,15 +96,15 @@ const Home = () => {
           <video
             key={houses[activeHouse].video}
             ref={videoRef}
-            autoPlay
+            autoPlay={videoInView}
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
             poster="/hero-640.webp"
             className="banner-video"
           >
-            <source src={houses[activeHouse].video} type="video/mp4" />
+            {videoInView && <source src={houses[activeHouse].video} type="video/mp4" />}
             <track kind="captions" src="/captions.vtt" srcLang="en" label="English captions" default />
           </video>
 
@@ -193,7 +207,9 @@ const Home = () => {
       </section>
 
       {/* 6. HOUSE FAVOURITES */}
-      <HouseFavourites />
+      <Suspense fallback={<div style={{ height: '800px' }} />}>
+        <HouseFavourites />
+      </Suspense>
 
       {/* 7. POINT OF ORIGIN */}
       <section className="point-of-origin-section reveal-scale">

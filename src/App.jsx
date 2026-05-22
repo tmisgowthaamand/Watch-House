@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import TopBar from './components/TopBar';
 import Header from './components/Header';
 import Home from './pages/Home';
-import Footer from './components/Footer';
 import useScrollReveal from './hooks/useScrollReveal';
-import CustomCursor from './components/CustomCursor';
+
+const CustomCursor = lazy(() => import('./components/CustomCursor'));
+const Footer = lazy(() => import('./components/Footer'));
 
 const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const Locations = lazy(() => import('./pages/Locations'));
@@ -118,12 +119,12 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <CustomCursor />
         <LoadingScreen />
         <TopBar />
         <Header />
         <PageWrapper>
           <Suspense fallback={null}>
+            <CustomCursor />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/product" element={<ProductDetail />} />
@@ -133,9 +134,9 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/collections/all" element={<Products />} />
             </Routes>
+            <Footer />
           </Suspense>
         </PageWrapper>
-        <Footer />
       </div>
     </Router>
   );
