@@ -125,6 +125,8 @@ function App() {
         <PageWrapper>
           <Suspense fallback={null}>
             <CustomCursor />
+          </Suspense>
+          <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/product" element={<ProductDetail />} />
@@ -134,6 +136,8 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/collections/all" element={<Products />} />
             </Routes>
+          </Suspense>
+          <Suspense fallback={null}>
             <Footer />
           </Suspense>
         </PageWrapper>
