@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { getLocalImageMeta } from '../utils/imageProps';
 import OptimizedImage from './OptimizedImage';
@@ -32,7 +32,7 @@ const slides = [
 
 const slideLinks = ['/locations', '/collections/all', '/subscribe'];
 
-const Hero = () => {
+const Hero = memo(() => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [imagesPrimed, setImagesPrimed] = useState(false);
 
@@ -270,6 +270,7 @@ const Hero = () => {
       `}</style>
     </section>
   );
-};
+});
 
+Hero.displayName = 'Hero';
 export default Hero;

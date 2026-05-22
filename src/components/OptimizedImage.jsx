@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import {
   getLocalImageMeta,
   localImageProps,
@@ -6,7 +7,7 @@ import {
   shopifySrcSet,
 } from '../utils/imageProps';
 
-const OptimizedImage = ({
+const OptimizedImage = memo(({
   src,
   alt,
   className,
@@ -51,6 +52,7 @@ const OptimizedImage = ({
       {...props}
     />
   );
-};
+});
 
+OptimizedImage.displayName = 'OptimizedImage';
 export default OptimizedImage;
