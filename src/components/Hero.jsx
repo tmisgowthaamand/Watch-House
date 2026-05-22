@@ -97,7 +97,7 @@ const Hero = memo(() => {
                     className="image-bg-img"
                     loading={i === 0 ? 'eager' : 'lazy'}
                     fetchPriority={i === 0 ? 'high' : undefined}
-                    sizes="(max-width: 767px) 100vw, 50vw"
+                    sizes="(max-width: 480px) 480px, (max-width: 767px) 800px, 50vw"
                     width="1024"
                     height="1024"
                   />
@@ -121,7 +121,7 @@ const Hero = memo(() => {
                     className="image-bg-img"
                     loading={i === 0 ? 'eager' : 'lazy'}
                     fetchPriority={i === 0 ? 'high' : undefined}
-                    sizes="(max-width: 767px) 100vw, 50vw"
+                    sizes="(max-width: 480px) 480px, (max-width: 767px) 800px, 50vw"
                     width="1024"
                     height="1024"
                   />
