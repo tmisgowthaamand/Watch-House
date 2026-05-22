@@ -2,8 +2,8 @@ import { Suspense, lazy, useState, useEffect, useCallback, startTransition } fro
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 
-const TopBar = lazy(() => import('./components/TopBar'));
-const Header = lazy(() => import('./components/Header'));
+import TopBar from './components/TopBar';
+import Header from './components/Header';
 
 const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -187,12 +187,8 @@ function App() {
     <Router>
       <div className="app">
         <LoadingScreen />
-        <Suspense fallback={null}>
-          <TopBar />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Header />
-        </Suspense>
+        <TopBar />
+        <Header />
         <PageWrapper>
           <Suspense fallback={null}>
             <CustomCursor />

@@ -157,9 +157,7 @@ const Hero = memo(() => {
           font-family: var(--font-sans);
           font-size: clamp(12px, 1.5vw, 14px);
           color: rgba(255,255,255,0.86);
-          font-weight: 500;
-          transition: all 0.3s;
-          text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+          transition: color 0.3s, transform 0.3s, font-weight 0.3s;
         }
         .nav-num.active {
           color: white;
@@ -248,7 +246,7 @@ const Hero = memo(() => {
           font-family: var(--font-sans);
           border-bottom: 1px solid rgba(255,255,255,0.75);
           padding-bottom: 4px;
-          transition: all 0.3s;
+          transition: color 0.3s, border-bottom-color 0.3s;
           display: inline-block;
           text-shadow: 0 1px 10px rgba(0,0,0,0.75);
         }

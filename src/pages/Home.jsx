@@ -39,6 +39,17 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (videoRef.current && videoInView) {
+      videoRef.current.load();
+      // Only play if intentionally intersecting
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => { /* Autoplay prevented */ });
+      }
+    }
+  }, [activeHouse, videoInView]);
+
   return (
     <main className="home-page">
       {/* 1. HERO */}
@@ -94,7 +105,6 @@ const Home = () => {
       <section className="highlighted-houses-section reveal-scale">
         <div className="houses-banner">
           <video
-            key={houses[activeHouse].video}
             ref={videoRef}
             autoPlay={videoInView}
             muted

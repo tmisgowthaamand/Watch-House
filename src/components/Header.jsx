@@ -447,14 +447,13 @@ const Header = () => {
           align-items: center;
           gap: var(--spacing-md);
         }
-        .logo-text { font-family: var(--font-serif); font-size: clamp(18px, 4vw, 24px); font-weight: 700; transition: all 0.3s ease; }
-        .scrolled-logo { font-size: clamp(24px, 5vw, 32px); letter-spacing: -2px; }
+        .logo-text { font-family: var(--font-serif); font-size: clamp(18px, 4vw, 24px); font-weight: 700; transition: transform 0.3s ease, letter-spacing 0.3s ease; transform-origin: left center; display: inline-block; }
+        .scrolled-logo { transform: scale(1.33); letter-spacing: -2px; }
 
         .nav-main ul { display: flex; justify-content: center; gap: clamp(20px, 3vw, 40px); flex-wrap: wrap; }
         .nav-main li { padding: 10px 0; }
         .nav-main a { font-family: var(--font-serif); font-size: clamp(14px, 2vw, 18px); font-weight: 500; }
         .nav-utility { display: flex; justify-content: flex-end; gap: clamp(12px, 2vw, 20px); align-items: center; flex-wrap: wrap; }
-
         .hover-underline { position: relative; }
         .hover-underline::after {
           content: ''; position: absolute; width: 100%; transform: scaleX(0);
@@ -466,7 +465,7 @@ const Header = () => {
         .nav-overlay-blur {
           position: fixed; top: 0; left: 0; width: 100%; height: 100%;
           background: rgba(0,0,0,0.05); backdrop-filter: blur(10px);
-          z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s;
+          z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
         }
         .nav-overlay-blur.active { opacity: 1; visibility: visible; }
 
