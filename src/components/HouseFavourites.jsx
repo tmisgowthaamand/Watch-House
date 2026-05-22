@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowRight, Bookmark } from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
 
 const HouseFavourites = () => {
   const [activeTab, setActiveTab] = useState('Beans.');
@@ -129,7 +130,7 @@ const HouseFavourites = () => {
                     <span className="hf-tag"><span className="circ">○</span> Brew. {p.brew}</span>
                     {p.tag && <span className="hf-tag right"><span className="circ">○</span> {p.tag}</span>}
                   </div>
-                  <img src={p.image} alt={p.title} className="hf-img" />
+                  <OptimizedImage src={p.image} alt={p.title} className="hf-img" sizes="(max-width: 640px) 40vw, 180px" />
                   <Bookmark className="hf-bookmark" size={16} />
                 </div>
                 <div className="hf-info">

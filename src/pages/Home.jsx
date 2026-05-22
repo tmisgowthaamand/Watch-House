@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Hero from '../components/Hero';
 import HouseFavourites from '../components/HouseFavourites';
+import OptimizedImage from '../components/OptimizedImage';
 import { ArrowRight } from 'lucide-react';
 
 const houses = [
@@ -59,7 +60,7 @@ const Home = () => {
               ].map(item => (
                 <div key={item.id} className="wh-home-card">
                   <div className="whc-img">
-                    <img src={item.img} alt={item.title} />
+                    <OptimizedImage src={item.img} alt={item.title} sizes="(max-width: 640px) 50vw, 280px" />
                   </div>
                   <div className="whc-text">
                     <h4 className="serif-dot">{item.title}</h4>
@@ -85,6 +86,8 @@ const Home = () => {
             muted
             loop
             playsInline
+            preload="none"
+            poster="/hero-640.webp"
             className="banner-video"
           >
             <source src={houses[activeHouse].video} type="video/mp4" />
@@ -95,7 +98,7 @@ const Home = () => {
               {/* Visit House Card on Left */}
               <div className="visit-house-card">
                 <div className="thumb-img">
-                  <img src="/hero.png" alt="Thumbnail" />
+                  <OptimizedImage src="/hero.png" alt="Thumbnail" sizes="320px" />
                 </div>
                 <button className="visit-btn">VISIT HOUSE <ArrowRight size={14} /></button>
               </div>
@@ -145,7 +148,7 @@ const Home = () => {
           <h3 className="sub-promo-title">Coffee on subscription.</h3>
           <div className="subscription-promo">
             <div className="promo-left">
-              <img src="/hero2.png" alt="Lifestyle" />
+              <OptimizedImage src="/hero2.png" alt="Lifestyle" sizes="(max-width: 1023px) 0px, 45vw" />
             </div>
             <div className="promo-right">
               <div>
@@ -167,11 +170,11 @@ const Home = () => {
                   <p className="options-title">Select one of the below options to get started.</p>
                   <div className="mini-options">
                     <div className="mini-opt-card">
-                      <img src="/hero.png" alt="Home" />
+                      <OptimizedImage src="/hero.png" alt="Home" sizes="(max-width: 640px) 50vw, 320px" />
                       <div className="card-label"><span>HOME</span> <ArrowRight size={14} /></div>
                     </div>
                     <div className="mini-opt-card">
-                      <img src="/hero3.png" alt="Office" />
+                      <OptimizedImage src="/hero3.png" alt="Office" sizes="(max-width: 640px) 50vw, 320px" />
                       <div className="card-label"><span>OFFICE</span> <ArrowRight size={14} /></div>
                     </div>
                   </div>
@@ -194,13 +197,13 @@ const Home = () => {
       {/* 7. POINT OF ORIGIN */}
       <section className="point-of-origin-section reveal-scale">
         <div className="poo-bg">
-          <img src="/hero.png" alt="Landscape" />
+          <OptimizedImage src="/hero.png" alt="Landscape" sizes="100vw" />
           <div className="poo-overlay"></div>
         </div>
         <div className="poo-content">
           <h2 className="poo-title">Point of Origin:<br />Bette Buna</h2>
           <div className="poo-thumb">
-            <img src="/hero2.png" alt="Video thumbnail" />
+            <OptimizedImage src="/hero2.png" alt="Video thumbnail" sizes="(max-width: 640px) 80vw, 480px" />
           </div>
           <div className="poo-text">
             <p>The first chapter in our new documentary series, tracing the people, places and<br />processes behind the coffees we serve.</p>
@@ -212,14 +215,14 @@ const Home = () => {
       {/* 8. SPLIT CARDS */}
       <section className="split-cards-section reveal">
         <div className="split-card left-card">
-          <img src="/hero2.png" alt="Menu" />
+          <OptimizedImage src="/hero2.png" alt="Menu" sizes="(max-width: 768px) 100vw, 50vw" />
           <div className="split-card-content">
             <h2 className="serif-dot">Our menu</h2>
             <button className="view-more-btn">VIEW MORE <ArrowRight size={10} style={{ marginLeft: 5 }} /></button>
           </div>
         </div>
         <div className="split-card right-card">
-          <img src="/hero3.png" alt="Story" />
+          <OptimizedImage src="/hero3.png" alt="Story" sizes="(max-width: 768px) 100vw, 50vw" />
           <div className="split-card-content">
             <h2 className="serif-dot">Our story</h2>
             <button className="view-more-btn">VIEW MORE <ArrowRight size={10} style={{ marginLeft: 5 }} /></button>

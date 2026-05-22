@@ -1,16 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const CustomCursor = () => {
     const cursorRef = useRef(null);
 
     useEffect(() => {
         // Check if device supports hover (ignores touch devices)
-        if (window.matchMedia('(pointer: coarse)').matches) return;
+        if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
         let mouseX = 0;
         let mouseY = 0;
         let cursorX = 0;
         let cursorY = 0;
+        let frameId = 0;
 
         // Fast tracking of raw mouse position
         const onMouseMove = (e) => {
@@ -33,11 +34,11 @@ const CustomCursor = () => {
                 cursorRef.current.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
             }
 
-            requestAnimationFrame(animate);
+            frameId = requestAnimationFrame(animate);
         };
 
         window.addEventListener('mousemove', onMouseMove, { passive: true });
-        requestAnimationFrame(animate);
+        frameId = requestAnimationFrame(animate);
 
         // Watch for hovers directly via DOM to avoid React re-renders which cause lag during route transitions
         const handleMouseOver = (e) => {
@@ -63,6 +64,7 @@ const CustomCursor = () => {
         return () => {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseover', handleMouseOver);
+            cancelAnimationFrame(frameId);
         };
     }, []);
 

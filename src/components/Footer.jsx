@@ -1,6 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
 
 const Footer = () => {
   return (
@@ -41,10 +41,10 @@ const Footer = () => {
 
           <div className="footer-col insta-grid-col reveal" data-delay="300">
             <div className="insta-grid">
-              <div className="insta-item"><img src="/hero.png" alt="Insta" /></div>
-              <div className="insta-item"><img src="/hero2.png" alt="Insta" /></div>
-              <div className="insta-item"><img src="/hero3.png" alt="Insta" /></div>
-              <div className="insta-item"><img src="/coffee_bag.png" alt="Insta" /></div>
+              <div className="insta-item"><OptimizedImage src="/hero.png" alt="Insta" sizes="80px" /></div>
+              <div className="insta-item"><OptimizedImage src="/hero2.png" alt="Insta" sizes="80px" /></div>
+              <div className="insta-item"><OptimizedImage src="/hero3.png" alt="Insta" sizes="80px" /></div>
+              <div className="insta-item"><OptimizedImage src="/coffee_bag.png" alt="Insta" sizes="80px" /></div>
             </div>
             <span className="insta-handle">@watchhouse</span>
           </div>
@@ -54,7 +54,7 @@ const Footer = () => {
             <p>New origins. Seasonal menus. Upcoming events. And 10% off, when you subscribe.</p>
             <div className="email-input-wrapper">
               <input type="email" placeholder="EMAIL ADDRESS" />
-              <button className="email-submit"><ArrowRight size={18} /></button>
+              <button className="email-submit" aria-label="Submit email"><ArrowRight size={18} /></button>
             </div>
           </div>
         </div>

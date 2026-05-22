@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { getLocalImageMeta } from '../utils/imageProps';
 
 const slides = [
   {
@@ -29,6 +30,7 @@ const slides = [
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [imagesPrimed, setImagesPrimed] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -36,6 +38,35 @@ const Hero = () => {
     }, 6000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const preloadSlides = () => {
+      slides.forEach((slide) => {
+        [slide.imageLeft, slide.imageRight].forEach((src) => {
+          const meta = getLocalImageMeta(src);
+          const img = new Image();
+          img.decoding = 'async';
+          img.src = meta ? `${meta.base}-640.avif` : src;
+        });
+      });
+      setImagesPrimed(true);
+    };
+
+    if ('requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(preloadSlides, { timeout: 1800 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timer = window.setTimeout(preloadSlides, 900);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const heroBackground = (src, active) => {
+    if (!active && !imagesPrimed) return undefined;
+    const meta = getLocalImageMeta(src);
+    if (!meta) return `url(${src})`;
+    return `image-set(url("${meta.base}-640.avif") type("image/avif"), url("${meta.base}-640.webp") type("image/webp"), url("${src}") type("image/png"))`;
+  };
 
   return (
     <section className="hero">
@@ -45,6 +76,7 @@ const Hero = () => {
             key={i}
             className={`nav-num ${currentSlide === i ? 'active' : ''}`}
             onClick={() => setCurrentSlide(i)}
+            aria-label={`Show hero slide ${i + 1}`}
           >
             0{i + 1}
           </button>
@@ -57,7 +89,7 @@ const Hero = () => {
             <div className="hero-split">
               <div className="hero-side left-side">
                 <div className="image-bg" style={{
-                  backgroundImage: `url(${slide.imageLeft})`,
+                  backgroundImage: heroBackground(slide.imageLeft, currentSlide === i),
                   transform: `scale(1.1) translate(var(--mx), var(--my))`
                 }}></div>
                 <div className="hero-content animate-fade-in">
@@ -69,7 +101,7 @@ const Hero = () => {
               </div>
               <div className="hero-side right-side">
                 <div className="image-bg" style={{
-                  backgroundImage: `url(${slide.imageRight})`,
+                  backgroundImage: heroBackground(slide.imageRight, currentSlide === i),
                   backgroundSize: '150%',
                   transform: `scale(1.1) translate(calc(var(--mx) * -1), calc(var(--my) * -1))`
                 }}></div>

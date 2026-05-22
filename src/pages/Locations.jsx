@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect } from 'react';
+import OptimizedImage from '../components/OptimizedImage';
 
 const locations = [
   { name: 'Bermondsey', img: '/hero.png' },
@@ -8,7 +9,7 @@ const locations = [
 ];
 
 const Locations = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Visit us – WatchHouse";
     window.scrollTo(0, 0);
   }, []);
@@ -18,7 +19,7 @@ const Locations = () => {
 
       {/* 1. Hero Banner */}
       <div className="loc-full-hero">
-        <img src="/hero3.png" alt="Visit us background" className="loc-hero-img" />
+        <OptimizedImage src="/hero3.png" alt="Visit us background" className="loc-hero-img" loading="eager" fetchPriority="high" sizes="100vw" />
         <div className="loc-hero-overlay">
           <span className="loc-hero-small">FIND YOUR NEAREST HOUSE</span>
           <h1 className="loc-hero-title serif-dot">Visit us.</h1>
@@ -53,10 +54,10 @@ const Locations = () => {
 
       {/* 4. 4-Column Location Cards Grid */}
       <div className="loc-grid-container">
-        {locations.map((loc, i) => (
+        {locations.map((loc) => (
           <div className="loc-simple-card" key={loc.name}>
             <div className="loc-simple-img">
-              <img src={loc.img} alt={loc.name} />
+              <OptimizedImage src={loc.img} alt={loc.name} sizes="(max-width: 900px) 50vw, 25vw" />
             </div>
             <div className="loc-simple-bottom">
               <div className="loc-simple-row">
@@ -70,7 +71,7 @@ const Locations = () => {
 
       {/* 5. Big Promo Image (Borough Market / WatchHouse 36) */}
       <div className="loc-promo-banner">
-        <img src="/hero.png" alt="WatchHouse Exterior" className="promo-banner-img" />
+        <OptimizedImage src="/hero.png" alt="WatchHouse Exterior" className="promo-banner-img" sizes="100vw" />
       </div>
 
       <style>{`

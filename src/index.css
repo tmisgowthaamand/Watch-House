@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
-
 :root {
   --color-bg: #F5EFEB;
   --color-text: #1A1A1A;
@@ -376,6 +374,21 @@ img {
   display: block;
 }
 
+picture {
+  display: contents;
+}
+
+.footer,
+.house-fav-section,
+.highlighted-houses-section,
+.point-of-origin-section,
+.press-section,
+.split-cards-section,
+.wh-home-wrapper {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
 /* ===== MOBILE-FIRST MEDIA QUERIES ===== */
 @media (max-width: 639px) {
   /* Ensure no horizontal overflow on small screens */
@@ -386,5 +399,16 @@ img {
   /* Increase spacing for touch targets on mobile */
   button {
     padding: clamp(10px, 2vw, 15px) clamp(16px, 4vw, 20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
   }
 }

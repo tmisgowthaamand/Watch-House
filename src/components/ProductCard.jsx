@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
 
 const ProductCard = ({ title, category, price, image }) => {
   const [showVariants, setShowVariants] = useState(false);
@@ -13,7 +14,7 @@ const ProductCard = ({ title, category, price, image }) => {
         <div className="product-card">
           <Link to="/product" className="image-link">
             <div className="product-image-wrapper">
-              <img src={image} alt={title} className="product-image" />
+              <OptimizedImage src={image} alt={title} className="product-image" sizes="(max-width: 640px) 100vw, 320px" />
             </div>
           </Link>
           <div className="product-info">
@@ -45,7 +46,7 @@ const ProductCard = ({ title, category, price, image }) => {
             {grinds.map(g => (
               <li key={g} className="grind-item">
                 <span>{g}</span>
-                <button className="select-dot"></button>
+                <button className="select-dot" aria-label={`Select ${g}`}></button>
               </li>
             ))}
           </ul>

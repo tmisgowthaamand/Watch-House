@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import OptimizedImage from './OptimizedImage';
 
 const Header = () => {
   const [activeMenu, setActiveMenu] = useState(null);
@@ -46,7 +47,7 @@ const Header = () => {
       <div className={`cart-drawer-wrapper ${cartOpen ? 'open' : ''}`}>
         <div className="cart-header">
           <h2 className="serif-dot">Your Cart.</h2>
-          <button className="close-cart" onClick={() => setCartOpen(false)}>×</button>
+          <button className="close-cart" onClick={() => setCartOpen(false)} aria-label="Close cart">×</button>
         </div>
         <div className="cart-body">
           {cartItems.length === 0 ? (
@@ -66,13 +67,13 @@ const Header = () => {
             <div className="cart-items">
               {cartItems.map(item => (
                 <div key={item.id} className="cart-item">
-                  <div className="ci-img"><img src={item.img} alt={item.name} /></div>
+                  <div className="ci-img"><OptimizedImage src={item.img} alt={item.name} width="80" height="100" sizes="80px" /></div>
                   <div className="ci-info">
                     <h4 className="serif-dot">{item.name}</h4>
                     <span className="ci-price">{item.price}</span>
                     <span className="ci-qty">Qty: {item.quantity}</span>
                   </div>
-                  <button className="ci-remove" onClick={() => removeFromCart(item.id)}>
+                  <button className="ci-remove" onClick={() => removeFromCart(item.id)} aria-label={`Remove ${item.name} from cart`}>
                     <Trash2 size={16} />
                   </button>
                 </div>
@@ -141,28 +142,28 @@ const Header = () => {
                     <li className="serif-dot">Locations.</li>
                   </ul>
                   <div className="search-boxes-img">
-                    <img src="/coffee_bag.png" alt="Boxes" />
+                    <OptimizedImage src="/coffee_bag.png" alt="Boxes" sizes="150px" />
                   </div>
                 </div>
               </div>
               <div className="search-right">
                 <div className="search-collections">
                   <div className="search-col-item">
-                    <img src="/hero2.png" alt="Rituals" />
+                    <OptimizedImage src="/hero2.png" alt="Rituals" sizes="80px" />
                     <div className="sc-text">
                       <h4 className="serif-dot">Rituals.</h4>
                       <p>Warm, comforting and familiar.</p>
                     </div>
                   </div>
                   <div className="search-col-item">
-                    <img src="/hero3.png" alt="Ventures" />
+                    <OptimizedImage src="/hero3.png" alt="Ventures" sizes="80px" />
                     <div className="sc-text">
                       <h4 className="serif-dot">Ventures.</h4>
                       <p>Complex and adventurous.</p>
                     </div>
                   </div>
                   <div className="search-col-item">
-                    <img src="/hero.png" alt="Horizons" />
+                    <OptimizedImage src="/hero.png" alt="Horizons" sizes="80px" />
                     <div className="sc-text">
                       <h4 className="serif-dot">Horizons.</h4>
                       <p>Expressive and unique.</p>
@@ -170,7 +171,7 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="search-subscribe">
-                  <img src="/hero2.png" alt="Subscribe" />
+                  <OptimizedImage src="/hero2.png" alt="Subscribe" sizes="(max-width: 640px) 100vw, 50vw" />
                   <div className="ss-text">
                     <h3 className="serif-dot">Subscribe.</h3>
                     <p>Coffee that delivers. For slow pours on quiet days, and stolen moments in busy ones. You set the schedule. We deliver. It's that simple.</p>
@@ -242,21 +243,21 @@ const Header = () => {
               {/* Col 4 (Collections) */}
               <div className="shop-collection-col">
                 <div className="shop-collection-item">
-                  <div className="collection-thumb"><img src="/hero.png" alt="Rituals" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero.png" alt="Rituals" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Rituals.</h4>
                     <p>Warm, comforting and familiar.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item">
-                  <div className="collection-thumb"><img src="/hero2.png" alt="Ventures" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero2.png" alt="Ventures" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Ventures.</h4>
                     <p>Complex and adventurous.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item last-item">
-                  <div className="collection-thumb"><img src="/hero3.png" alt="Horizons" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero3.png" alt="Horizons" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Horizons.</h4>
                     <p>Expressive and unique.</p>
@@ -266,7 +267,7 @@ const Header = () => {
 
               {/* Col 5 (Promo) */}
               <div className="shop-promo-col">
-                <img src="/hero2.png" alt="Subscription" className="promo-img" />
+                <OptimizedImage src="/hero2.png" alt="Subscription" className="promo-img" sizes="(max-width: 640px) 100vw, 20vw" />
                 <h3 className="serif-dot">Coffee on subscription.</h3>
                 <p>Coffee that delivers. For slow pours on quiet days, and stolen moments in busy ones. You set the schedule. We deliver. It's that simple.</p>
               </div>
@@ -317,21 +318,21 @@ const Header = () => {
               {/* Col 3 */}
               <div className="shop-collection-col">
                 <div className="shop-collection-item">
-                  <div className="collection-thumb"><img src="/hero.png" alt="Loyalty" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero.png" alt="Loyalty" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Loyalty.</h4>
                     <p>Six stamps. One on the House.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item">
-                  <div className="collection-thumb"><img src="/hero2.png" alt="Menu" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero2.png" alt="Menu" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Menu.</h4>
                     <p>Because you can't live on food alone.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item last-item">
-                  <div className="collection-thumb"><img src="/hero3.png" alt="Private hire" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero3.png" alt="Private hire" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Private hire.</h4>
                     <p>Unique venues for gatherings and brand moments.</p>
@@ -341,7 +342,7 @@ const Header = () => {
 
               {/* Col 4 (Promo) */}
               <div className="shop-promo-col">
-                <img src="/hero.png" alt="Borough Market" className="promo-img" />
+                <OptimizedImage src="/hero.png" alt="Borough Market" className="promo-img" sizes="(max-width: 640px) 100vw, 20vw" />
                 <h3 className="serif-dot">Borough Market, opening soon.</h3>
                 <p>Opening soon in Borough Market. Granite, tile, timber and steel, built for coffee and the rhythm of the market.</p>
               </div>
@@ -382,21 +383,21 @@ const Header = () => {
               {/* Col 3 – People */}
               <div className="shop-collection-col">
                 <div className="shop-collection-item">
-                  <div className="collection-thumb"><img src="/hero2.png" alt="Roland Horne" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero2.png" alt="Roland Horne" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Roland Horne.</h4>
                     <p>Founder & CEO</p>
                   </div>
                 </div>
                 <div className="shop-collection-item">
-                  <div className="collection-thumb"><img src="/hero.png" alt="Our Team" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero.png" alt="Our Team" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Our Team.</h4>
                     <p>The people behind every cup.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item last-item">
-                  <div className="collection-thumb"><img src="/hero3.png" alt="Careers" /></div>
+                  <div className="collection-thumb"><OptimizedImage src="/hero3.png" alt="Careers" sizes="70px" /></div>
                   <div className="collection-text">
                     <h4 className="serif-dot">Careers.</h4>
                     <p>Join the WatchHouse family.</p>
@@ -406,7 +407,7 @@ const Header = () => {
 
               {/* Col 4 – Promo */}
               <div className="shop-promo-col">
-                <img src="/hero2.png" alt="WatchHouse Interior" className="promo-img" />
+                <OptimizedImage src="/hero2.png" alt="WatchHouse Interior" className="promo-img" sizes="(max-width: 640px) 100vw, 20vw" />
                 <h3 className="serif-dot">Modern Coffee.</h3>
                 <p>Originally originating in a former 19th-century watch house on London's famous Bermondsey Street. Built around coffee, design and hospitality.</p>
               </div>
@@ -419,7 +420,7 @@ const Header = () => {
         {activeMenu === 'wishlist' && (
           <div className="megamenu mm-wishlist animate-fade-in">
             <div className="wishlist-bg">
-              <img src="/hero3.png" alt="Brewing" />
+              <OptimizedImage src="/hero3.png" alt="Brewing" sizes="100vw" />
               <div className="wishlist-overlay">
                 <div className="container">
                   <span className="wl-label">WISHLIST</span>

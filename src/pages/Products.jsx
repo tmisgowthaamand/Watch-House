@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 import productsData from '../productsData.json';
 import { useCart } from '../context/CartContext';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Products = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedBrew, setSelectedBrew] = useState([]);
-  const [selectedProcess, setSelectedProcess] = useState([]);
-  const [selectedNotes, setSelectedNotes] = useState([]);
+  const [selectedNotes] = useState([]);
   const [selectedCollection, setSelectedCollection] = useState([]);
   const { addToCart } = useCart();
 
@@ -95,7 +95,7 @@ const Products = () => {
 
         {/* Product Grid */}
         <div className="pw-grid">
-          {filteredProducts.map((p, i) => (
+          {filteredProducts.map((p) => (
             <Link to="/product" state={{ product: p }} key={p.id} className="pw-card">
               {/* Top Badges */}
               <div className="pw-card-top">
@@ -105,7 +105,15 @@ const Products = () => {
 
               {/* Image Area */}
               <div className="pw-card-img">
-                {p.img && <img src={p.img} alt={p.name} loading="lazy" decoding="async" />}
+                {p.img && (
+                  <OptimizedImage
+                    src={p.img}
+                    alt={p.name}
+                    width="480"
+                    height="480"
+                    sizes="(max-width: 480px) 85vw, (max-width: 768px) 45vw, (max-width: 1024px) 30vw, 23vw"
+                  />
+                )}
               </div>
 
               {/* Bottom Info Area */}
@@ -123,7 +131,7 @@ const Products = () => {
                       addToCart(p);
                       // In a real app we'd use a toast, for now alert
                       alert(`Added ${p.name}`);
-                    }}>
+                    }} aria-label={`Add ${p.name} to cart`}>
                       <Plus size={14} strokeWidth={2} />
                     </button>
                   </div>

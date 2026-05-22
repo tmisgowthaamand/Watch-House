@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import OptimizedImage from '../components/OptimizedImage';
 
 const Wishlist = () => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const Wishlist = () => {
     <div className="wishlist-page reveal">
       {/* HERO SECTION */}
       <section className="wishlist-hero">
-        <img src="/hero3.png" alt="Brewing coffee" className="hero-bg" />
+        <OptimizedImage src="/hero3.png" alt="Brewing coffee" className="hero-bg" loading="eager" fetchPriority="high" sizes="100vw" />
         <div className="hero-overlay">
           <div className="container">
             <span className="label">WISHLIST</span>
@@ -42,7 +43,7 @@ const Wishlist = () => {
 
           <div className="shop-grid">
             <div className="shop-card">
-              <div className="shop-img-box"><img src="/hero.png" alt="Rituals" /></div>
+              <div className="shop-img-box"><OptimizedImage src="/hero.png" alt="Rituals" sizes="(max-width: 768px) 100vw, 33vw" /></div>
               <div className="shop-card-text">
                 <span className="serif-dot shop-card-title">Rituals.</span>
                 <span className="shop-card-desc">Warm, comforting and familiar.</span>
@@ -50,7 +51,7 @@ const Wishlist = () => {
               <button className="discover-link">DISCOVER COLLECTION <ArrowRight size={14} /></button>
             </div>
             <div className="shop-card">
-              <div className="shop-img-box"><img src="/hero2.png" alt="Ventures" /></div>
+              <div className="shop-img-box"><OptimizedImage src="/hero2.png" alt="Ventures" sizes="(max-width: 768px) 100vw, 33vw" /></div>
               <div className="shop-card-text">
                 <span className="serif-dot shop-card-title">Ventures.</span>
                 <span className="shop-card-desc">Complex and adventurous.</span>
@@ -58,7 +59,7 @@ const Wishlist = () => {
               <button className="discover-link">DISCOVER COLLECTION <ArrowRight size={14} /></button>
             </div>
             <div className="shop-card">
-              <div className="shop-img-box"><img src="/hero3.png" alt="Horizons" /></div>
+              <div className="shop-img-box"><OptimizedImage src="/hero3.png" alt="Horizons" sizes="(max-width: 768px) 100vw, 33vw" /></div>
               <div className="shop-card-text">
                 <span className="serif-dot shop-card-title">Horizons.</span>
                 <span className="shop-card-desc">Expressive and unique.</span>

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, Heart, ChevronDown, Minus, Plus } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import OptimizedImage from '../components/OptimizedImage';
 
 const ProductDetail = () => {
   const location = useLocation();
@@ -11,7 +12,7 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [openDetail, setOpenDetail] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "1829 Espresso – WatchHouse";
   }, []);
 
@@ -64,14 +65,22 @@ const ProductDetail = () => {
         {/* Gallery */}
         <div className="pdp-gallery">
           <div className="gallery-main reveal">
-            <img src={product ? product.img : "/coffee_bag.png"} alt={product ? product.name : "1829 Espresso"} />
+            <OptimizedImage
+              src={product ? product.img : "/coffee_bag.png"}
+              alt={product ? product.name : "1829 Espresso"}
+              loading="eager"
+              fetchPriority="high"
+              width={product ? 480 : undefined}
+              height={product ? 480 : undefined}
+              sizes="(max-width: 900px) 70vw, 40vw"
+            />
           </div>
           <div className="gallery-secondary">
             <div className="gallery-img reveal" data-delay="100">
-              <img src="/hero.png" alt="Lifestyle shot" />
+              <OptimizedImage src="/hero.png" alt="Lifestyle shot" sizes="(max-width: 900px) 50vw, 25vw" />
             </div>
             <div className="gallery-img reveal" data-delay="200">
-              <img src="/hero2.png" alt="Detail shot" />
+              <OptimizedImage src="/hero2.png" alt="Detail shot" sizes="(max-width: 900px) 50vw, 25vw" />
             </div>
           </div>
         </div>
@@ -131,11 +140,11 @@ const ProductDetail = () => {
               <div className="selector-block">
                 <label>Quantity</label>
                 <div className="qty-control">
-                  <button className="qty-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
+                  <button className="qty-btn" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Decrease quantity">
                     <Minus size={14} />
                   </button>
                   <span className="qty-val">{quantity}</span>
-                  <button className="qty-btn" onClick={() => setQuantity(quantity + 1)}>
+                  <button className="qty-btn" onClick={() => setQuantity(quantity + 1)} aria-label="Increase quantity">
                     <Plus size={14} />
                   </button>
                 </div>

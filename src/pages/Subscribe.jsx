@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
+import OptimizedImage from '../components/OptimizedImage';
 
 const steps = [
   {
@@ -83,10 +84,13 @@ const Subscribe = () => {
         {/* Left: Image Panel */}
         <div className="sub-image-panel">
           <div className="sub-image-bg">
-            <img
+            <OptimizedImage
               src={currentStep.options[0]?.image || '/hero.png'}
               alt="Subscription"
               key={step}
+              loading="eager"
+              fetchPriority="high"
+              sizes="(max-width: 900px) 100vw, 45vw"
             />
           </div>
           <div className="sub-image-overlay">

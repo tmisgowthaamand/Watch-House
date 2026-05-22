@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import OptimizedImage from '../components/OptimizedImage';
 
 const About = () => {
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Our Story – WatchHouse";
     window.scrollTo(0, 0);
   }, []);
@@ -12,7 +12,7 @@ const About = () => {
 
       {/* 1. HERO – Full bleed storefront */}
       <section className="ab-hero">
-        <img src="/hero2.png" alt="WatchHouse storefront" className="ab-hero-img" />
+        <OptimizedImage src="/hero2.png" alt="WatchHouse storefront" className="ab-hero-img" loading="eager" fetchPriority="high" sizes="100vw" />
         <div className="ab-hero-overlay">
           <span className="ab-hero-label">OUR STORY SINCE 2014</span>
           <h1 className="ab-hero-title serif-dot">Our story.</h1>
@@ -33,10 +33,10 @@ const About = () => {
       <section className="ab-duo-section">
         <div className="ab-duo-grid">
           <div className="ab-duo-left">
-            <img src="/hero.png" alt="Interior" />
+            <OptimizedImage src="/hero.png" alt="Interior" sizes="(max-width: 900px) 100vw, 60vw" />
           </div>
           <div className="ab-duo-right">
-            <img src="/hero3.png" alt="Coffee detail" />
+            <OptimizedImage src="/hero3.png" alt="Coffee detail" sizes="(max-width: 900px) 100vw, 40vw" />
             <div className="ab-duo-caption">
               <span className="ab-caption-label">INNOVATION IN SPECIALITY COFFEE</span>
             </div>
@@ -56,22 +56,22 @@ const About = () => {
           <div className="ab-ethos-card">
             <h4 className="serif-dot">The Original WatchHouse.</h4>
             <p>What started as a Watch House on Bermondsey Street became the home of Modern Coffee.</p>
-            <div className="ab-ethos-img"><img src="/hero.png" alt="Original" /></div>
+            <div className="ab-ethos-img"><OptimizedImage src="/hero.png" alt="Original" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
           <div className="ab-ethos-card">
             <h4 className="serif-dot">Sourced and roasted here.</h4>
             <p>Direct relationships with producers. Precision roasting at our London roastery for maximum expression.</p>
-            <div className="ab-ethos-img"><img src="/hero2.png" alt="Roasted" /></div>
+            <div className="ab-ethos-img"><OptimizedImage src="/hero2.png" alt="Roasted" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
           <div className="ab-ethos-card">
             <h4 className="serif-dot">Coffee-centric food.</h4>
             <p>Our food menus are designed to complement the coffee. Seasonal, considered, and made fresh daily.</p>
-            <div className="ab-ethos-img"><img src="/hero3.png" alt="Food" /></div>
+            <div className="ab-ethos-img"><OptimizedImage src="/hero3.png" alt="Food" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
           <div className="ab-ethos-card">
             <h4 className="serif-dot">By invitation only.</h4>
             <p>Private hire and exclusive brand events hosted across our Houses in London, New York, and Dubai.</p>
-            <div className="ab-ethos-img"><img src="/hero.png" alt="Private" /></div>
+            <div className="ab-ethos-img"><OptimizedImage src="/hero.png" alt="Private" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
         </div>
       </section>
@@ -87,7 +87,7 @@ const About = () => {
             </p>
           </div>
           <div className="ab-founder-img">
-            <img src="https://watchhouse.com/cdn/shop/files/WatchHouse-About-Roland.jpg?v=1776178526&width=1050" alt="Roland Horne – Founder and CEO of WatchHouse" />
+            <OptimizedImage src="https://watchhouse.com/cdn/shop/files/WatchHouse-About-Roland.jpg?v=1776178526&width=1050" alt="Roland Horne – Founder and CEO of WatchHouse" width="480" height="600" sizes="(max-width: 900px) 100vw, 50vw" />
           </div>
         </div>
         <p className="ab-founder-footnote">
@@ -110,8 +110,8 @@ const About = () => {
           <div className="ab-standard-right"></div>
         </div>
         <div className="ab-standard-images">
-          <div className="ab-std-img"><img src="/hero3.png" alt="Roasting" /></div>
-          <div className="ab-std-img"><img src="/hero.png" alt="Interior" /></div>
+          <div className="ab-std-img"><OptimizedImage src="/hero3.png" alt="Roasting" sizes="(max-width: 900px) 100vw, 50vw" /></div>
+          <div className="ab-std-img"><OptimizedImage src="/hero.png" alt="Interior" sizes="(max-width: 900px) 100vw, 50vw" /></div>
         </div>
         <p className="ab-standard-footnote">
           There are currently over 100 coffee-producing countries, and we work directly with producers in over 20 of them. We travel to Burmandol, Sao Paulo and Guatemala to source the finest coffees, and build long-lasting relationships with incredible people.
@@ -131,14 +131,14 @@ const About = () => {
             </p>
           </div>
           <div className="ab-brunch-right">
-            <img src="/hero3.png" alt="Brunch plate" />
+            <OptimizedImage src="/hero3.png" alt="Brunch plate" sizes="(max-width: 900px) 350px, 30vw" />
           </div>
         </div>
       </section>
 
       {/* 8. BOTTOM STOREFRONT */}
       <section className="ab-bottom-img">
-        <img src="/hero.png" alt="WatchHouse exterior" />
+        <OptimizedImage src="/hero.png" alt="WatchHouse exterior" sizes="100vw" />
       </section>
 
       <style>{`

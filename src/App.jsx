@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import TopBar from './components/TopBar';
 import Header from './components/Header';
 import Home from './pages/Home';
-import ProductDetail from './pages/ProductDetail';
-import Locations from './pages/Locations';
-import About from './pages/About';
-import Subscribe from './pages/Subscribe';
-import Wishlist from './pages/Wishlist';
-import Products from './pages/Products';
 import Footer from './components/Footer';
 import useScrollReveal from './hooks/useScrollReveal';
 import CustomCursor from './components/CustomCursor';
+
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
+const Locations = lazy(() => import('./pages/Locations'));
+const About = lazy(() => import('./pages/About'));
+const Subscribe = lazy(() => import('./pages/Subscribe'));
+const Wishlist = lazy(() => import('./pages/Wishlist'));
+const Products = lazy(() => import('./pages/Products'));
 
 const LoadingScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ const LoadingScreen = () => {
     const timer = setTimeout(() => {
       setLoading(false);
       document.documentElement.classList.remove('show-loading-screen');
-    }, 1200);
+    }, 450);
     return () => clearTimeout(timer);
   }, []);
 
@@ -110,15 +111,17 @@ function App() {
         <TopBar />
         <Header />
         <PageWrapper>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/product" element={<ProductDetail />} />
-            <Route path="/locations" element={<Locations />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/subscribe" element={<Subscribe />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/collections/all" element={<Products />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/product" element={<ProductDetail />} />
+              <Route path="/locations" element={<Locations />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/subscribe" element={<Subscribe />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/collections/all" element={<Products />} />
+            </Routes>
+          </Suspense>
         </PageWrapper>
         <Footer />
       </div>
