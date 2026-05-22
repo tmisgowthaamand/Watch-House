@@ -192,7 +192,8 @@
 </head>
 
 <body>
-  <div id="root">
+  <!-- App Shell / LCP Fixed Image Layer - Persists independently of React to eliminate critical JS rendering blocks -->
+  <div id="app-shell" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
     <!-- TopBar Skeleton for 0 CLS -->
     <div style="background-color: #1A1A1A; height: 35px; width: 100%;"></div>
     <!-- Header Skeleton for 0 CLS -->
@@ -221,6 +222,8 @@
       </div>
     </div>
   </div>
+
+  <div id="root"></div>
   <script type="module" src="/src/main.jsx" defer></script>
 </body>
 

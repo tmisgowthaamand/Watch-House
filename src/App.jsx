@@ -145,13 +145,23 @@ function App() {
     let isTicking = false;
     let mouseX = 0, mouseY = 0;
 
+    let winWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
+    let winHeight = typeof window !== 'undefined' ? window.innerHeight : 768;
+
+    const updateDimensions = () => {
+      winWidth = window.innerWidth;
+      winHeight = window.innerHeight;
+    };
+
+    window.addEventListener('resize', updateDimensions, { passive: true });
+
     const handleMouseMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (!isTicking) {
         animationFrameId = requestAnimationFrame(() => {
-          const x = (mouseX / window.innerWidth - 0.5);
-          const y = (mouseY / window.innerHeight - 0.5);
+          const x = (mouseX / winWidth - 0.5);
+          const y = (mouseY / winHeight - 0.5);
           document.documentElement.style.setProperty('--mx', `${x * 15}px`);
           document.documentElement.style.setProperty('--my', `${y * 15}px`);
           document.documentElement.style.setProperty('--mx-slow', `${x * 8}px`);
@@ -164,6 +174,7 @@ function App() {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => {
+      window.removeEventListener('resize', updateDimensions);
       window.removeEventListener('mousemove', handleMouseMove);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
