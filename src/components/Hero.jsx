@@ -87,22 +87,22 @@ const Hero = () => {
 
       <style>{`
         .hero {
-          height: 85vh;
+          height: clamp(60vh, 85vh, 95vh);
           width: 100%;
           position: relative;
           overflow: hidden;
         }
         .slider-nav {
           position: absolute;
-          top: 40px;
-          left: var(--spacing-md);
+          top: clamp(20px, 3vw, 40px);
+          left: var(--container-padding);
           z-index: 10;
           display: flex;
-          gap: 20px;
+          gap: clamp(12px, 2vw, 20px);
         }
         .nav-num {
           font-family: var(--font-sans);
-          font-size: 14px;
+          font-size: clamp(12px, 1.5vw, 14px);
           color: white;
           opacity: 0.4;
           font-weight: 500;
@@ -116,25 +116,37 @@ const Hero = () => {
         .slide-container {
           display: flex;
           height: 100%;
-          width: 100%; /* Fixed from 300% */
+          width: 100%;
           transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .hero-slide {
-          flex: 0 0 100%; /* Fixed to ensure exactly 100vw width */
+          flex: 0 0 100%;
           height: 100%;
         }
         .hero-split {
           display: flex;
+          flex-direction: column;
           height: 100%;
+        }
+        @media (min-width: 768px) {
+          .hero-split {
+            flex-direction: row;
+          }
         }
         .hero-side {
           flex: 1;
           position: relative;
           display: flex;
           align-items: flex-end;
-          padding: 60px;
+          padding: clamp(20px, 4vw, 60px);
           overflow: hidden;
           transition: transform 0.2s ease-out;
+          min-height: 300px;
+        }
+        @media (min-width: 768px) {
+          .hero-side {
+            min-height: auto;
+          }
         }
         .image-bg {
           position: absolute;
@@ -148,48 +160,47 @@ const Hero = () => {
         }
         .hero-content {
           position: relative;
-          max-width: 500px;
+          max-width: clamp(100%, 500px, 100%);
           z-index: 2;
-          transform: translate(var(--mx-slow), var(--my-slow)); /* Applying parallax to content too */
+          transform: translate(var(--mx-slow), var(--my-slow));
+          width: 100%;
         }
         .hero h2 {
-          font-size: 4.5rem;
+          font-size: clamp(1.8rem, 5vw, 4.5rem);
           line-height: 1;
-          margin-bottom: 20px;
+          margin-bottom: clamp(10px, 2vw, 20px);
           color: white;
           text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
         .hero p {
           color: rgba(255,255,255,0.8);
-          font-size: 14px;
+          font-size: clamp(12px, 2vw, 14px);
           font-family: var(--font-sans);
           max-width: 350px;
         }
         .hero-link {
           color: rgba(255,255,255,0.85);
-          font-size: 13px;
+          font-size: clamp(11px, 1.8vw, 13px);
           font-family: var(--font-sans);
           border-bottom: 1px solid rgba(255,255,255,0.4);
           padding-bottom: 4px;
           transition: all 0.3s;
+          display: inline-block;
         }
         .hero-link:hover {
           color: white;
           border-bottom-color: white;
         }
         .right-side .hero-content {
-          text-align: right;
+          text-align: left;
+        }
+        @media (min-width: 768px) {
+          .right-side .hero-content {
+            text-align: right;
+          }
         }
         .right-side .hero-content h2 {
-          font-size: 3rem;
-        }
-
-        @media (max-width: 768px) {
-          .hero-split { flex-direction: column; }
-          .hero-side { padding: 30px; }
-          .hero h2 { font-size: 2.5rem; }
-          .right-side .hero-content h2 { font-size: 1.8rem; }
-          .slider-nav { top: 20px; left: 20px; }
+          font-size: clamp(1.5rem, 4vw, 3rem);
         }
       `}</style>
     </section>

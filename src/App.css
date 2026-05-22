@@ -1,132 +1,404 @@
 /* App.css - Global Responsive Overrides */
-/* Ensures all pages align perfectly on Android, iPhone, iPad, and Desktop */
+/* Standardized breakpoints: 640px (tablet), 1024px (large), 1280px (xl) */
+/* Mobile-first approach - base styles are mobile, then expand */
 
-@media (max-width: 1024px) {
-  /* Header */
+/* ===== TABLET: 640px - 1023px ===== */
+@media (min-width: 640px) {
+  .container {
+    padding: 0 var(--container-padding);
+  }
+
+  .section-padding {
+    padding: clamp(60px, 10vw, 100px) 0;
+  }
+
+  /* Header responsive at tablet */
   .header-content {
-    grid-template-columns: 1fr 1fr !important;
+    grid-template-columns: 1fr 2fr 1fr;
   }
+
   .nav-main {
-    display: none !important; /* Hide main nav on small screens, prevents overlap */
+    display: flex !important;
   }
+
   .nav-utility {
     justify-content: flex-end;
-  }
-  .mm-shop-grid, .mm-visit-grid, .mm-about-grid, .mm-search-grid {
-    grid-template-columns: 1fr 1fr !important;
     gap: 20px;
   }
-  .shop-promo-col {
-    display: none !important; /* hide promo on tablets to save space */
+
+  /* Megamenus expand at tablet */
+  .mm-shop-grid,
+  .mm-visit-grid,
+  .mm-about-grid,
+  .mm-search-grid {
+    padding: 40px;
   }
-  .wishlist-overlay .wl-title {
-    font-size: 3rem !important;
-  }
-  
-  /* Home */
-  .commitment-grid, .wh-home-grid, .subscription-promo {
-    flex-direction: column !important;
+
+  .mm-shop-grid {
+    grid-template-columns: 1fr 1fr 1fr auto 1fr;
     gap: 40px;
+    min-height: 450px;
   }
+
+  .mm-visit-grid {
+    grid-template-columns: 1.2fr 1.2fr auto 1.5fr;
+    gap: 40px;
+    min-height: 450px;
+  }
+
+  .mm-about-grid {
+    grid-template-columns: 1fr 1fr auto 1.5fr;
+    gap: 40px;
+    min-height: 450px;
+  }
+
+  .shop-link-col {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .shop-promo-col {
+    display: block !important;
+  }
+
+  .cart-drawer-wrapper {
+    width: min(450px, 100vw - 40px) !important;
+    right: -450px !important;
+  }
+
+  .cart-drawer-wrapper.open {
+    right: 0 !important;
+  }
+
+  /* Home page at tablet */
+  .commitment-grid,
+  .wh-home-grid,
+  .subscription-promo {
+    flex-direction: row;
+    gap: var(--spacing-lg);
+  }
+
   .wh-home-title-col {
-    flex: auto !important;
+    flex: 0 0 auto;
   }
-  .wh-home-grid {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
+
   .split-cards-section {
-    flex-direction: column !important;
+    flex-direction: row;
   }
+
   .visit-house-card {
-    display: none !important; /* hide on smaller screens */
+    display: block !important;
   }
+
   .houses-info {
-    text-align: left !important;
+    text-align: right !important;
   }
+
   .houses-info h3 {
-    text-align: left !important;
+    text-align: right !important;
   }
-  .large-text.serif, .poo-title {
-    font-size: 2.2rem !important;
+
+  /* Typography at tablet */
+  h2,
+  h3 {
+    font-size: var(--text-2xl);
   }
+
+  .large-text.serif,
+  .poo-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+
   .promo-left {
-    display: none !important;
+    display: block !important;
   }
+
   .poo-thumb {
-    width: 80vw !important;
+    width: auto !important;
+  }
+
+  /* Footer at tablet */
+  .footer-content,
+  .footer-grid,
+  .locations-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .press-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+  }
+
+  .subscription-promo .promo-right h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .promo-benefits {
+    flex-direction: row;
+    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-lg);
+  }
+
+  .split-card-content h2 {
+    font-size: var(--text-2xl);
   }
 }
 
-@media (max-width: 768px) {
-  /* Global */
+/* ===== LARGE TABLETS/DESKTOP: 1024px + ===== */
+@media (min-width: 1024px) {
   .container {
-    padding: 0 20px !important;
+    padding: 0 var(--container-padding);
   }
+
+  /* Header fully visible */
+  .header-content {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  .nav-main {
+    display: flex !important;
+  }
+
+  /* Megamenus fully expanded */
+  .mm-shop-grid {
+    grid-template-columns: 1fr 1.2fr 1fr 1.5fr 1.5fr;
+    gap: 60px;
+    min-height: 450px;
+  }
+
+  .mm-visit-grid {
+    grid-template-columns: 1.2fr 1.2fr 1.5fr 1.8fr;
+    gap: 60px;
+    min-height: 450px;
+  }
+
+  .mm-about-grid {
+    grid-template-columns: 1fr 1fr 1.5fr 1.8fr;
+    gap: 60px;
+    min-height: 450px;
+  }
+
+  .mm-search-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .shop-promo-col {
+    display: block !important;
+  }
+
+  /* Cart drawer fixed width on desktop */
+  .cart-drawer-wrapper {
+    width: 450px !important;
+    right: -450px !important;
+  }
+
+  .cart-drawer-wrapper.open {
+    right: 0 !important;
+  }
+
+  /* Home page expanded */
+  .commitment-grid,
+  .wh-home-grid {
+    flex-direction: row;
+    gap: var(--spacing-xl);
+  }
+
+  .wh-home-title-col {
+    flex: 0 0 auto;
+  }
+
+  .split-cards-section {
+    flex-direction: row;
+  }
+
+  .visit-house-card {
+    display: block !important;
+  }
+
+  .houses-info {
+    text-align: right !important;
+  }
+
+  .poo-thumb {
+    width: auto !important;
+  }
+
+  .promo-left {
+    display: block !important;
+  }
+
+  /* Footer grid expanded */
+  .footer-content,
+  .footer-grid,
+  .locations-grid {
+    grid-template-columns: 1fr 1fr 1fr 1.2fr 2fr;
+    gap: var(--spacing-xl);
+  }
+
+  .wishlist-overlay .wl-title {
+    font-size: 4.5rem;
+  }
+}
+
+/* ===== EXTRA LARGE SCREENS: 1280px+ ===== */
+@media (min-width: 1280px) {
+  .container {
+    padding: 0 var(--container-padding);
+  }
+
+  /* Typography at full desktop size */
+  h1 {
+    font-size: 4.5rem;
+  }
+
+  h2 {
+    font-size: 3.5rem;
+  }
+
+  h3 {
+    font-size: 2.8rem;
+  }
+
+  .large-text.serif {
+    font-size: 2.5rem;
+  }
+
+  /* Full desktop spacing */
   .section-padding {
-    padding: 60px 0 !important;
+    padding: 100px 0;
   }
-  .megamenu {
-    position: fixed !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
-    overflow-y: auto !important;
+}
+
+/* ===== SMALL MOBILE FIX: 320px - 479px ===== */
+@media (max-width: 479px) {
+  .container {
+    padding: 0 var(--spacing-sm);
   }
-  .mm-shop-grid, .mm-visit-grid, .mm-about-grid, .mm-search-grid {
+
+  .section-padding {
+    padding: clamp(40px, 8vw, 60px) 0;
+  }
+
+  /* Header compact on small phones */
+  .header-content {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .nav-main {
+    display: none !important;
+  }
+
+  .logo-text {
+    font-size: 18px !important;
+  }
+
+  /* Menus stack on small screens */
+  .mm-shop-grid,
+  .mm-visit-grid,
+  .mm-about-grid,
+  .mm-search-grid {
     grid-template-columns: 1fr !important;
-    padding: 20px !important;
+    gap: var(--spacing-md) !important;
+    padding: var(--spacing-md) !important;
   }
+
   .megamenu .shop-link-col {
     border-right: none !important;
-    border-bottom: 1px solid rgba(0,0,0,0.1) !important;
-    padding: 20px 0 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    padding: var(--spacing-md) 0 !important;
   }
-  
-  /* Text Sizes */
-  .large-text.serif {
-    font-size: 1.8rem !important;
+
+  /* Home stacked on small phones */
+  .commitment-grid,
+  .wh-home-grid,
+  .subscription-promo {
+    flex-direction: column !important;
+    gap: var(--spacing-md) !important;
   }
-  .wh-home-title-col h2:not(.tiny-label) {
-    font-size: 2.2rem !important;
+
+  .wh-home-title-col {
+    flex: auto !important;
   }
-  h2, h3 {
-    font-size: 1.8rem !important;
+
+  .split-cards-section {
+    flex-direction: column !important;
   }
+
+  .visit-house-card {
+    display: none !important;
+  }
+
+  .houses-info {
+    text-align: left !important;
+  }
+
+  .houses-info h3 {
+    text-align: left !important;
+  }
+
+  .promo-left {
+    display: none !important;
+  }
+
+  .poo-thumb {
+    width: 100% !important;
+  }
+
+  /* Typography scaled down on small screens */
+  h2,
+  h3 {
+    font-size: var(--text-xl) !important;
+  }
+
+  .large-text.serif,
   .poo-title {
-    font-size: 2rem !important;
+    font-size: var(--text-lg) !important;
   }
-  
-  /* Layouts - Home */
+
   .subscription-promo .promo-right h2 {
-    font-size: 1.8rem !important;
-    margin-bottom: 30px !important;
+    font-size: var(--text-lg) !important;
+    margin-bottom: var(--spacing-md) !important;
   }
+
   .promo-benefits {
     flex-direction: column !important;
-    margin-bottom: 40px !important;
+    margin-bottom: var(--spacing-md) !important;
     gap: 0 !important;
   }
-  
-  /* Split Cards */
+
   .split-card-content h2 {
-    font-size: 2rem !important;
+    font-size: var(--text-lg) !important;
   }
-  
-  /* General Components */
-  .footer-content, .footer-grid, .locations-grid {
+
+  /* Footer stacked on small phones */
+  .footer-content,
+  .footer-grid,
+  .locations-grid {
     grid-template-columns: 1fr !important;
-    gap: 40px !important;
+    gap: var(--spacing-md) !important;
   }
+
   .press-grid {
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 20px !important;
+    gap: var(--spacing-sm) !important;
   }
+
+  /* Cart drawer full width on small phones */
   .cart-drawer-wrapper {
     width: 100vw !important;
     right: -100vw !important;
   }
+
   .cart-drawer-wrapper.open {
     right: 0 !important;
+  }
+
+  /* Wishlist title scaled */
+  .wishlist-overlay .wl-title {
+    font-size: var(--text-3xl) !important;
   }
 }
