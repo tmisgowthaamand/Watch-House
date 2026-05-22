@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState, useEffect, useCallback, startTransition } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 
@@ -15,20 +15,23 @@ const Subscribe = lazy(() => import('./pages/Subscribe'));
 const Wishlist = lazy(() => import('./pages/Wishlist'));
 const Products = lazy(() => import('./pages/Products'));
 
+/* Desktop-only loading screen */
+const isDesktop = typeof window !== 'undefined' && !window.matchMedia('(max-width: 767px)').matches;
+const isPointerDevice = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
 const LoadingScreen = () => {
-  const [loading, setLoading] = useState(() => !window.matchMedia('(max-width: 767px)').matches);
+  const [loading, setLoading] = useState(isDesktop);
 
   useEffect(() => {
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      return;
-    }
-
+    if (!isDesktop) return;
     const timer = setTimeout(() => {
       setLoading(false);
       document.documentElement.classList.remove('show-loading-screen');
     }, 450);
     return () => clearTimeout(timer);
   }, []);
+
+  if (!isDesktop) return null;
 
   return (
     <div className={`loading-screen ${loading ? 'active' : 'hidden'}`}>
@@ -60,11 +63,6 @@ const LoadingScreen = () => {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.5; }
         }
-        @media (max-width: 767px) {
-          .loading-screen {
-            display: none;
-          }
-        }
       `}</style>
     </div>
   );
@@ -82,7 +80,7 @@ const PageWrapper = ({ children }) => {
 };
 
 function App() {
-  // Deferred scroll-reveal: run AFTER first paint
+  // Deferred scroll-reveal: run AFTER first paint via requestIdleCallback
   useEffect(() => {
     let observer;
     let mutationObs;
@@ -92,14 +90,14 @@ function App() {
       const options = { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.08 };
 
       const handleIntersect = (entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
+        for (let i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            const el = entries[i].target;
             const delay = el.dataset.delay || 0;
             setTimeout(() => el.classList.add('revealed'), Number(delay));
             obs.unobserve(el);
           }
-        });
+        }
       };
 
       observer = new IntersectionObserver(handleIntersect, options);
@@ -108,13 +106,14 @@ function App() {
         const selectors = '.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .reveal-scale:not(.revealed), .reveal-stagger';
         document.querySelectorAll(selectors).forEach(el => {
           if (el.classList.contains('reveal-stagger')) {
-            Array.from(el.children).forEach((child, i) => {
-              if (!child.classList.contains('revealed')) {
-                child.classList.add('reveal');
-                child.dataset.delay = String(i * 100);
-                observer.observe(child);
+            const children = el.children;
+            for (let i = 0; i < children.length; i++) {
+              if (!children[i].classList.contains('revealed')) {
+                children[i].classList.add('reveal');
+                children[i].dataset.delay = String(i * 100);
+                observer.observe(children[i]);
               }
-            });
+            }
           }
           observer.observe(el);
         });
@@ -124,48 +123,45 @@ function App() {
 
       mutationObs = new MutationObserver(() => {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(observeElements, 300);
+        debounceTimer = setTimeout(observeElements, 400);
       });
       mutationObs.observe(document.body, { childList: true, subtree: true });
     };
 
-    // Delay initialization until after LCP paints
+    // Delay init until after LCP paints
     if ('requestIdleCallback' in window) {
-      const id = requestIdleCallback(init, { timeout: 2500 });
+      const id = requestIdleCallback(init, { timeout: 3000 });
       return () => { cancelIdleCallback(id); observer?.disconnect(); mutationObs?.disconnect(); };
     }
-    const t = setTimeout(init, 500);
+    const t = setTimeout(init, 800);
     return () => { clearTimeout(t); observer?.disconnect(); mutationObs?.disconnect(); };
   }, []);
 
+  // Desktop-only parallax mouse tracking
   useEffect(() => {
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
+    if (!isPointerDevice) return;
 
     let animationFrameId;
     let isTicking = false;
     let mouseX = 0, mouseY = 0;
+    let winW = window.innerWidth;
+    let winH = window.innerHeight;
 
-    let winWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
-    let winHeight = typeof window !== 'undefined' ? window.innerHeight : 768;
-
-    const updateDimensions = () => {
-      winWidth = window.innerWidth;
-      winHeight = window.innerHeight;
-    };
-
-    window.addEventListener('resize', updateDimensions, { passive: true });
+    const onResize = () => { winW = window.innerWidth; winH = window.innerHeight; };
+    window.addEventListener('resize', onResize, { passive: true });
 
     const handleMouseMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
       if (!isTicking) {
         animationFrameId = requestAnimationFrame(() => {
-          const x = (mouseX / winWidth - 0.5);
-          const y = (mouseY / winHeight - 0.5);
-          document.documentElement.style.setProperty('--mx', `${x * 15}px`);
-          document.documentElement.style.setProperty('--my', `${y * 15}px`);
-          document.documentElement.style.setProperty('--mx-slow', `${x * 8}px`);
-          document.documentElement.style.setProperty('--my-slow', `${y * 8}px`);
+          const x = (mouseX / winW - 0.5);
+          const y = (mouseY / winH - 0.5);
+          const style = document.documentElement.style;
+          style.setProperty('--mx', `${x * 15}px`);
+          style.setProperty('--my', `${y * 15}px`);
+          style.setProperty('--mx-slow', `${x * 8}px`);
+          style.setProperty('--my-slow', `${y * 8}px`);
           isTicking = false;
         });
         isTicking = true;
@@ -174,7 +170,7 @@ function App() {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => {
-      window.removeEventListener('resize', updateDimensions);
+      window.removeEventListener('resize', onResize);
       window.removeEventListener('mousemove', handleMouseMove);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
@@ -187,7 +183,7 @@ function App() {
         <TopBar />
         <Header />
         <PageWrapper>
-          {typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches && (
+          {isPointerDevice && (
             <Suspense fallback={null}>
               <CustomCursor />
             </Suspense>

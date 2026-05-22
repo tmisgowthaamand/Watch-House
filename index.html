@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="preload" as="image" imagesrcset="/hero-320.avif 320w, /hero-480.avif 480w, /hero-640.avif 640w"
+    imagesizes="(max-width: 767px) 100vw, 50vw" fetchpriority="high" type="image/avif" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap"
     media="print" onload="this.media='all'" />
@@ -16,10 +18,6 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap" />
   </noscript>
-  <link rel="preload" as="image" imagesrcset="/hero-320.avif 320w, /hero-480.avif 480w, /hero-640.avif 640w"
-    imagesizes="(max-width: 767px) 100vw, 50vw" fetchpriority="high" type="image/avif" />
-  <link rel="preload" as="image" imagesrcset="/hero2-320.avif 320w, /hero2-480.avif 480w, /hero2-640.avif 640w"
-    imagesizes="(max-width: 767px) 100vw, 50vw" fetchpriority="high" type="image/avif" />
 
   <meta name="description"
     content="WatchHouse serves modern coffee across distinctive Houses, with coffee beans, pods, subscriptions, locations and stories from the brand." />
@@ -37,7 +35,7 @@
   <meta name="twitter:image" content="https://watch-house-pi.vercel.app/hero-640.webp" />
   <meta name="theme-color" content="#F5EFEB" />
   <title>WatchHouse.</title>
-  <!-- Critical CSS - Inlined for LCP optimization -->
+  <!-- Critical CSS - Inlined for instant FCP/LCP -->
   <style>
     :root {
       --color-bg: #F5EFEB;
@@ -144,87 +142,34 @@
     picture {
       display: contents;
     }
-
-    .hero-pre {
-      height: clamp(60vh, 85vh, 95vh);
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    @media (min-width: 768px) {
-      .hero-pre {
-        flex-direction: row;
-      }
-    }
-
-    .hero-pre-side {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      background: #DCD8D2;
-    }
-
-    .hero-pre-bg {
-      position: absolute;
-      top: -20px;
-      left: -20px;
-      right: -20px;
-      bottom: -20px;
-      transform: scale(1.1);
-    }
-
-    .hero-pre-zoomed {
-      top: -25%;
-      left: -25%;
-      right: -25%;
-      bottom: -25%;
-    }
-
-    .hero-pre-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
   </style>
 </head>
 
 <body>
-  <!-- App Shell / LCP Fixed Image Layer - Persists independently of React to eliminate critical JS rendering blocks -->
-  <div id="app-shell" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+  <div id="root">
     <!-- TopBar Skeleton for 0 CLS -->
     <div style="background-color: #1A1A1A; height: 35px; width: 100%;"></div>
     <!-- Header Skeleton for 0 CLS -->
     <div
       style="border-bottom: 1px solid rgba(0,0,0,0.05); padding: clamp(12px, 2vw, 20px) clamp(16px, 5vw, 40px); background-color: #F5EFEB; display: flex; align-items: center;">
       <div
-        style="font-family: 'Outfit', serif; font-size: clamp(18px, 4vw, 24px); font-weight: 700; color: #1A1A1A; line-height: normal; display: inline-block;">
+        style="font-family: 'Outfit', serif; font-size: clamp(18px, 4vw, 24px); font-weight: 700; color: #1A1A1A; line-height: normal;">
         WatchHouse.</div>
     </div>
-    <!-- Hero LCP Elements Pre-hydrate -->
-    <div class="hero-pre">
-      <div class="hero-pre-side">
-        <picture class="hero-pre-bg">
-          <source srcset="/hero-320.avif 320w, /hero-480.avif 480w, /hero-640.avif 640w"
-            sizes="(max-width: 767px) 100vw, 50vw" type="image/avif" />
-          <img src="/hero-640.avif" alt="" fetchpriority="high" loading="eager" decoding="async" class="hero-pre-img" />
-        </picture>
-      </div>
-      <div class="hero-pre-side">
-        <picture class="hero-pre-bg hero-pre-zoomed">
-          <source srcset="/hero2-320.avif 320w, /hero2-480.avif 480w, /hero2-640.avif 640w"
-            sizes="(max-width: 767px) 100vw, 50vw" type="image/avif" />
-          <img src="/hero2-640.avif" alt="" fetchpriority="high" loading="eager" decoding="async"
-            class="hero-pre-img" />
-        </picture>
-      </div>
+    <!-- Hero LCP Image - painted by browser before any JS -->
+    <div
+      style="height: clamp(60vh, 85vh, 95vh); width: 100%; overflow: hidden; position: relative; background: #DCD8D2;">
+      <picture>
+        <source srcset="/hero-320.avif 320w, /hero-480.avif 480w, /hero-640.avif 640w"
+          sizes="(max-width: 767px) 100vw, 50vw" type="image/avif" />
+        <source srcset="/hero-320.webp 320w, /hero-480.webp 480w, /hero-640.webp 640w"
+          sizes="(max-width: 767px) 100vw, 50vw" type="image/webp" />
+        <img src="/hero-640.webp" alt="WatchHouse interior" width="640" height="640" fetchpriority="high"
+          loading="eager" decoding="async" style="width: 100%; height: 100%; object-fit: cover;" />
+      </picture>
     </div>
   </div>
-
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx" defer></script>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 
 </html>
