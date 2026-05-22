@@ -431,6 +431,7 @@ const Header = () => {
         )}
       </header>
 
+      <style>{`
         .header {
           border-bottom: 1px solid rgba(0,0,0,0.05);
           padding: var(--spacing-sm) 0;
@@ -832,7 +833,7 @@ const Header = () => {
         @media (max-width: 500px) {
           .cart-drawer-wrapper { width: 100vw; right: -100%; }
         }
-</style>
+      `}</style>
     </>
   );
 };
