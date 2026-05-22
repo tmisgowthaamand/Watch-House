@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container footer-main">
         <div className="footer-links-grid">
           <div className="footer-col reveal" data-delay="0">
-            <h3 className="serif-dot">WatchHouse</h3>
+            <h2 className="serif-dot">WatchHouse</h2>
             <ul>
               <li><Link to="/about">Story</Link></li>
               <li><Link to="/about">Journal</Link></li>
@@ -19,7 +19,7 @@ const Footer = () => {
           </div>
 
           <div className="footer-col reveal" data-delay="100">
-            <h3 className="serif-dot">Houses</h3>
+            <h2 className="serif-dot">Houses</h2>
             <ul>
               <li><Link to="/locations">Visit us</Link></li>
               <li><Link to="/subscribe">App</Link></li>
@@ -29,7 +29,7 @@ const Footer = () => {
           </div>
 
           <div className="footer-col reveal" data-delay="200">
-            <h3 className="serif-dot">Help & Info</h3>
+            <h2 className="serif-dot">Help & Info</h2>
             <ul>
               <li><Link to="/about">FAQs</Link></li>
               <li><Link to="/about">Brew guides</Link></li>
@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
 
           <div className="footer-col newsletter-col reveal" data-delay="400">
-            <h3 className="serif-dot">Our emails. Your inbox</h3>
+            <h2 className="serif-dot">Our emails. Your inbox</h2>
             <p>New origins. Seasonal menus. Upcoming events. And 10% off, when you subscribe.</p>
             <div className="email-input-wrapper">
               <input type="email" placeholder="EMAIL ADDRESS" />
@@ -107,7 +107,7 @@ const Footer = () => {
           }
         }
 
-        .footer-col h3 {
+        .footer-col h2 {
           font-size: clamp(1.3rem, 3vw, 1.8rem);
           margin-bottom: clamp(20px, 3vw, 30px);
           font-weight: 600;

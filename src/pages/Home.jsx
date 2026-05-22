@@ -86,7 +86,7 @@ const Home = () => {
             muted
             loop
             playsInline
-            preload="none"
+            preload="metadata"
             poster="/hero-640.webp"
             className="banner-video"
           >
@@ -105,7 +105,7 @@ const Home = () => {
               </div>
 
               <div className="houses-info">
-                <h3>Highlighted Houses.</h3>
+                <h2>Highlighted Houses.</h2>
                 <ul className="house-list">
                   {houses.map((house, idx) => (
                     <li
@@ -146,7 +146,7 @@ const Home = () => {
       {/* 5. SUBSCRIPTION PROMO */}
       <section className="section-padding reveal">
         <div className="container sub-promo-container">
-          <h3 className="sub-promo-title">Coffee on subscription.</h3>
+          <h2 className="sub-promo-title">Coffee on subscription.</h2>
           <div className="subscription-promo">
             <div className="promo-left">
               <OptimizedImage src="/hero2.png" alt="Lifestyle" sizes="(max-width: 1023px) 0px, 45vw" />
@@ -404,9 +404,9 @@ const Home = () => {
         .visit-btn { font-size: clamp(8px, 1.2vw, 10px); font-weight: 700; border-bottom: 1px solid white; padding-bottom: 4px; width: 100%; text-align: left; }
 
         .houses-info { max-width: 600px; width: 100%; }
-        .houses-info h3 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: clamp(20px, 3vw, 30px); text-align: left; }
+        .houses-info h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin-bottom: clamp(20px, 3vw, 30px); text-align: left; }
         @media (min-width: 768px) {
-          .houses-info h3 { text-align: right; }
+          .houses-info h2 { text-align: right; }
         }
         .house-list { margin-bottom: clamp(20px, 3vw, 40px); }
         .house-list li {

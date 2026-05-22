@@ -67,7 +67,7 @@ const Hero = () => {
 
   return (
     <section className="hero">
-      <h1 className="sr-only">WatchHouse modern coffee</h1>
+      <h1 className="sr-only">WatchHouse - Modern Coffee Across Distinctive Houses</h1>
       <div className="slider-nav">
         {slides.map((_, i) => (
           <button
@@ -98,6 +98,8 @@ const Hero = () => {
                     loading={i === 0 ? 'eager' : 'lazy'}
                     fetchPriority={i === 0 ? 'high' : undefined}
                     sizes="(max-width: 767px) 100vw, 50vw"
+                    width="1024"
+                    height="1024"
                   />
                 </div>
                 <div className="hero-content animate-fade-in">
@@ -120,6 +122,8 @@ const Hero = () => {
                     loading={i === 0 ? 'eager' : 'lazy'}
                     fetchPriority={i === 0 ? 'high' : undefined}
                     sizes="(max-width: 767px) 100vw, 50vw"
+                    width="1024"
+                    height="1024"
                   />
                 </div>
                 <div className="hero-content animate-fade-in">

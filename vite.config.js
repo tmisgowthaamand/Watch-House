@@ -12,10 +12,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          // Vendor chunk for node_modules
           if (!id.includes('node_modules')) return undefined;
+
+          // Separate chunks by library for better caching
           if (id.includes('react-router-dom')) return 'router';
           if (id.includes('lucide-react')) return 'icons';
-          if (id.includes('react-dom') || id.includes('react')) return 'react';
+          if (id.includes('react-dom') || id.includes('react/')) return 'react';
+
           return 'vendor';
         },
       },
