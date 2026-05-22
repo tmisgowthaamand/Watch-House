@@ -235,46 +235,6 @@ const Footer = () => {
           font-size: clamp(11px, 1.5vw, 12px);
           opacity: 0.8;
         }
-      `}
-          border: none;
-          color: white;
-          width: 100%;
-          font-family: var(--font-sans);
-          font-size: 12px;
-          letter-spacing: 0.1em;
-          outline: none;
-        }
-        .email-submit {
-          background: transparent;
-          border: none;
-          color: white;
-          cursor: pointer;
-          opacity: 0.6;
-          transition: 0.3s;
-        }
-        .email-submit:hover { opacity: 1; transform: translateX(5px); }
-
-
-
-        .footer-bottom {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 40px;
-          border-top: 1px solid rgba(255,255,255,0.1);
-          font-size: 12px;
-          opacity: 0.7;
-        }
-        .bottom-left { display: flex; gap: 40px; }
-        .legal-links { display: flex; gap: 20px; }
-        .social-links { display: flex; gap: 30px; }
-        .social-links span { cursor: pointer; transition: 0.3s; }
-        .social-links span:hover { opacity: 1; text-decoration: underline; }
-
-        @media (max-width: 1024px) {
-          .footer-links-grid { grid-template-columns: repeat(2, 1fr); }
-          .newsletter-col { grid-column: span 2; margin-top: 40px; }
-        }
       `}</style>
     </footer>
   );
