@@ -69,7 +69,7 @@ const Header = () => {
                 <div key={item.id} className="cart-item">
                   <div className="ci-img"><OptimizedImage src={item.img} alt={item.name} width="80" height="100" sizes="80px" /></div>
                   <div className="ci-info">
-                    <h4 className="serif-dot">{item.name}</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>{item.name}</span>
                     <span className="ci-price">{item.price}</span>
                     <span className="ci-qty">Qty: {item.quantity}</span>
                   </div>
@@ -151,21 +151,21 @@ const Header = () => {
                   <div className="search-col-item">
                     <OptimizedImage src="/hero2.png" alt="Rituals" sizes="80px" />
                     <div className="sc-text">
-                      <h4 className="serif-dot">Rituals.</h4>
+                      <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Rituals.</span>
                       <p>Warm, comforting and familiar.</p>
                     </div>
                   </div>
                   <div className="search-col-item">
                     <OptimizedImage src="/hero3.png" alt="Ventures" sizes="80px" />
                     <div className="sc-text">
-                      <h4 className="serif-dot">Ventures.</h4>
+                      <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Ventures.</span>
                       <p>Complex and adventurous.</p>
                     </div>
                   </div>
                   <div className="search-col-item">
                     <OptimizedImage src="/hero.png" alt="Horizons" sizes="80px" />
                     <div className="sc-text">
-                      <h4 className="serif-dot">Horizons.</h4>
+                      <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Horizons.</span>
                       <p>Expressive and unique.</p>
                     </div>
                   </div>
@@ -245,21 +245,21 @@ const Header = () => {
                 <div className="shop-collection-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero.png" alt="Rituals" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Rituals.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Rituals.</span>
                     <p>Warm, comforting and familiar.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero2.png" alt="Ventures" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Ventures.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Ventures.</span>
                     <p>Complex and adventurous.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item last-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero3.png" alt="Horizons" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Horizons.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Horizons.</span>
                     <p>Expressive and unique.</p>
                   </div>
                 </div>
@@ -320,21 +320,21 @@ const Header = () => {
                 <div className="shop-collection-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero.png" alt="Loyalty" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Loyalty.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Loyalty.</span>
                     <p>Six stamps. One on the House.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero2.png" alt="Menu" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Menu.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Menu.</span>
                     <p>Because you can't live on food alone.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item last-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero3.png" alt="Private hire" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Private hire.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Private hire.</span>
                     <p>Unique venues for gatherings and brand moments.</p>
                   </div>
                 </div>
@@ -385,21 +385,21 @@ const Header = () => {
                 <div className="shop-collection-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero2.png" alt="Roland Horne" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Roland Horne.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Roland Horne.</span>
                     <p>Founder & CEO</p>
                   </div>
                 </div>
                 <div className="shop-collection-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero.png" alt="Our Team" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Our Team.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Our Team.</span>
                     <p>The people behind every cup.</p>
                   </div>
                 </div>
                 <div className="shop-collection-item last-item">
                   <div className="collection-thumb"><OptimizedImage src="/hero3.png" alt="Careers" sizes="70px" /></div>
                   <div className="collection-text">
-                    <h4 className="serif-dot">Careers.</h4>
+                    <span className="serif-dot" style={{ fontFamily: 'var(--font-serif)', display: 'block' }}>Careers.</span>
                     <p>Join the WatchHouse family.</p>
                   </div>
                 </div>
@@ -507,7 +507,7 @@ const Header = () => {
         .search-collections { display: grid; grid-template-rows: repeat(3, 1fr); gap: var(--spacing-md); margin-bottom: var(--spacing-lg); }
         .search-col-item { display: flex; gap: var(--spacing-md); align-items: center; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px; }
         .search-col-item img { width: clamp(60px, 15vw, 80px); height: auto; object-fit: cover; }
-        .sc-text h4 { font-size: clamp(1rem, 2.5vw, 1.3rem); margin-bottom: 5px; }
+        .sc-text span { font-size: clamp(1rem, 2.5vw, 1.3rem); margin-bottom: 5px; }
         .sc-text p { font-size: clamp(0.75rem, 1.5vw, 14px); opacity: 0.8; }
         .search-subscribe img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: var(--spacing-md); }
         .ss-text h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); margin-bottom: var(--spacing-md); }
@@ -700,7 +700,7 @@ const Header = () => {
           object-fit: cover;
         }
 
-        .collection-text h4 {
+        .collection-text span {
           font-size: clamp(14px, 2vw, 16px);
           margin: 0 0 5px;
         }
@@ -829,7 +829,7 @@ const Header = () => {
         }
         .ci-img img { width: 80%; mix-blend-mode: multiply; }
         .ci-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        .ci-info h4 { font-size: clamp(0.95rem, 2vw, 1.1rem); }
+        .ci-info span { font-size: clamp(0.95rem, 2vw, 1.1rem); }
         .ci-price, .ci-qty { font-family: var(--font-sans); font-size: clamp(10px, 1.5vw, 12px); font-weight: 600; opacity: 0.8; }
         .ci-remove { background: transparent; border: none; cursor: pointer; padding: clamp(8px, 1.5vw, 10px); color: #666; transition: 0.3s; flex-shrink: 0; }
         .ci-remove:hover { color: red; }

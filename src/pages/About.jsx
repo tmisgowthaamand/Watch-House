@@ -54,22 +54,22 @@ const About = () => {
         <span className="ab-section-label">Our ethos.</span>
         <div className="ab-ethos-grid">
           <div className="ab-ethos-card">
-            <h4 className="serif-dot">The Original WatchHouse.</h4>
+            <h2 className="serif-dot" style={{ fontSize: '16px', lineHeight: 1.3 }}>The Original WatchHouse.</h2>
             <p>What started as a Watch House on Bermondsey Street became the home of Modern Coffee.</p>
             <div className="ab-ethos-img"><OptimizedImage src="/hero.png" alt="Original" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
           <div className="ab-ethos-card">
-            <h4 className="serif-dot">Sourced and roasted here.</h4>
+            <h2 className="serif-dot" style={{ fontSize: '16px', lineHeight: 1.3 }}>Sourced and roasted here.</h2>
             <p>Direct relationships with producers. Precision roasting at our London roastery for maximum expression.</p>
             <div className="ab-ethos-img"><OptimizedImage src="/hero2.png" alt="Roasted" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
           <div className="ab-ethos-card">
-            <h4 className="serif-dot">Coffee-centric food.</h4>
+            <h2 className="serif-dot" style={{ fontSize: '16px', lineHeight: 1.3 }}>Coffee-centric food.</h2>
             <p>Our food menus are designed to complement the coffee. Seasonal, considered, and made fresh daily.</p>
             <div className="ab-ethos-img"><OptimizedImage src="/hero3.png" alt="Food" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
           <div className="ab-ethos-card">
-            <h4 className="serif-dot">By invitation only.</h4>
+            <h2 className="serif-dot" style={{ fontSize: '16px', lineHeight: 1.3 }}>By invitation only.</h2>
             <p>Private hire and exclusive brand events hosted across our Houses in London, New York, and Dubai.</p>
             <div className="ab-ethos-img"><OptimizedImage src="/hero.png" alt="Private" sizes="(max-width: 900px) 50vw, 25vw" /></div>
           </div>
@@ -280,7 +280,7 @@ const About = () => {
           border-top: 1px solid rgba(0,0,0,0.15);
           padding-top: 20px;
         }
-        .ab-ethos-card h4 {
+        .ab-ethos-card h2 {
           font-size: 16px;
           margin-bottom: 10px;
         }

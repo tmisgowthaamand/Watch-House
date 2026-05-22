@@ -118,7 +118,7 @@ const Products = () => {
 
               {/* Bottom Info Area */}
               <div className="pw-card-bottom">
-                <h4 className="pw-title">{p.name}.</h4>
+                <h2 className="pw-title" style={{ fontSize: '16px', lineHeight: 1 }}>{p.name}.</h2>
                 <div className="pw-meta">
                   <div className="meta-left">
                     <span className="meta-sub">{p.tag1Val}</span>

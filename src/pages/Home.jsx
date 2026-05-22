@@ -88,7 +88,7 @@ const Home = () => {
                     <OptimizedImage src={item.img} alt={item.title} sizes="(max-width: 640px) 50vw, 280px" />
                   </div>
                   <div className="whc-text">
-                    <h4 className="serif-dot">{item.title}</h4>
+                    <h3 className="serif-dot" style={{ fontSize: 'var(--text-xl)', lineHeight: 1.3 }}>{item.title}</h3>
                     <button className="whc-discover">
                       <span className="discover-text">DISCOVER</span>
                       <ArrowRight size={12} strokeWidth={1.5} />
