@@ -9,22 +9,45 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=optional"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=optional"
       />
     </noscript>
-    <link rel="preload" as="image" href="/hero-640.avif" type="image/avif" fetchpriority="high" />
-    <link rel="preload" as="image" href="/hero2-640.avif" type="image/avif" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/hero-480.avif"
+      imagesrcset="/hero-320.avif 320w, /hero-480.avif 480w, /hero-640.avif 640w"
+      imagesizes="(max-width: 767px) 100vw, 50vw"
+      type="image/avif"
+      fetchpriority="high"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
       content="WatchHouse serves modern coffee across distinctive Houses, with coffee beans, pods, subscriptions, locations and stories from the brand."
     />
+    <link rel="canonical" href="https://watch-house-pi.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WatchHouse." />
+    <meta
+      property="og:description"
+      content="Modern coffee across distinctive Houses, with beans, pods, subscriptions, locations and stories from WatchHouse."
+    />
+    <meta property="og:url" content="https://watch-house-pi.vercel.app/" />
+    <meta property="og:image" content="https://watch-house-pi.vercel.app/hero-640.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WatchHouse." />
+    <meta
+      name="twitter:description"
+      content="Modern coffee across distinctive Houses, with beans, pods, subscriptions, locations and stories from WatchHouse."
+    />
+    <meta name="twitter:image" content="https://watch-house-pi.vercel.app/hero-640.webp" />
     <meta name="theme-color" content="#F5EFEB" />
     <title>WatchHouse.</title>
   </head>

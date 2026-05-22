@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getLocalImageMeta } from '../utils/imageProps';
+import OptimizedImage from './OptimizedImage';
 
 const slides = [
   {
@@ -27,6 +29,8 @@ const slides = [
     imageRight: "/hero.png"
   }
 ];
+
+const slideLinks = ['/locations', '/collections/all', '/subscribe'];
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -61,15 +65,9 @@ const Hero = () => {
     return () => window.clearTimeout(timer);
   }, []);
 
-  const heroBackground = (src, active) => {
-    if (!active && !imagesPrimed) return undefined;
-    const meta = getLocalImageMeta(src);
-    if (!meta) return `url(${src})`;
-    return `image-set(url("${meta.base}-640.avif") type("image/avif"), url("${meta.base}-640.webp") type("image/webp"), url("${src}") type("image/png"))`;
-  };
-
   return (
     <section className="hero">
+      <h1 className="sr-only">WatchHouse modern coffee</h1>
       <div className="slider-nav">
         {slides.map((_, i) => (
           <button
@@ -89,9 +87,19 @@ const Hero = () => {
             <div className="hero-split">
               <div className="hero-side left-side">
                 <div className="image-bg" style={{
-                  backgroundImage: heroBackground(slide.imageLeft, currentSlide === i),
+                  opacity: currentSlide === i || imagesPrimed ? 1 : 0,
                   transform: `scale(1.1) translate(var(--mx), var(--my))`
-                }}></div>
+                }}>
+                  <OptimizedImage
+                    src={slide.imageLeft}
+                    alt=""
+                    aria-hidden="true"
+                    className="image-bg-img"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={i === 0 ? 'high' : undefined}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                  />
+                </div>
                 <div className="hero-content animate-fade-in">
                   <h2 className="serif-dot">
                     {slide.leftTitle}
@@ -100,16 +108,25 @@ const Hero = () => {
                 </div>
               </div>
               <div className="hero-side right-side">
-                <div className="image-bg" style={{
-                  backgroundImage: heroBackground(slide.imageRight, currentSlide === i),
-                  backgroundSize: '150%',
+                <div className="image-bg image-bg-zoomed" style={{
+                  opacity: currentSlide === i || imagesPrimed ? 1 : 0,
                   transform: `scale(1.1) translate(calc(var(--mx) * -1), calc(var(--my) * -1))`
-                }}></div>
+                }}>
+                  <OptimizedImage
+                    src={slide.imageRight}
+                    alt=""
+                    aria-hidden="true"
+                    className="image-bg-img"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={i === 0 ? 'high' : undefined}
+                    sizes="(max-width: 767px) 100vw, 50vw"
+                  />
+                </div>
                 <div className="hero-content animate-fade-in">
                   <h2 className="serif-dot">
                     {slide.rightTitle}
                   </h2>
-                  <a href="#" className="hero-link">{slide.rightLink}</a>
+                  <Link to={slideLinks[i]} className="hero-link">{slide.rightLink}</Link>
                 </div>
               </div>
             </div>
@@ -135,13 +152,13 @@ const Hero = () => {
         .nav-num {
           font-family: var(--font-sans);
           font-size: clamp(12px, 1.5vw, 14px);
-          color: white;
-          opacity: 0.4;
+          color: rgba(255,255,255,0.86);
           font-weight: 500;
           transition: all 0.3s;
+          text-shadow: 0 1px 8px rgba(0,0,0,0.8);
         }
         .nav-num.active {
-          opacity: 1;
+          color: white;
           font-weight: 800;
           transform: scale(1.2);
         }
@@ -186,9 +203,19 @@ const Hero = () => {
           left: -20px;
           right: -20px;
           bottom: -20px;
-          background-size: cover;
-          background-position: center;
           transition: transform 0.2s ease-out;
+        }
+        .image-bg-zoomed {
+          top: -25%;
+          left: -25%;
+          right: -25%;
+          bottom: -25%;
+        }
+        .image-bg-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
         }
         .hero-content {
           position: relative;
@@ -205,19 +232,21 @@ const Hero = () => {
           text-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
         .hero p {
-          color: rgba(255,255,255,0.8);
+          color: rgba(255,255,255,0.92);
           font-size: clamp(12px, 2vw, 14px);
           font-family: var(--font-sans);
           max-width: 350px;
+          text-shadow: 0 1px 10px rgba(0,0,0,0.75);
         }
         .hero-link {
-          color: rgba(255,255,255,0.85);
+          color: rgba(255,255,255,0.95);
           font-size: clamp(11px, 1.8vw, 13px);
           font-family: var(--font-sans);
-          border-bottom: 1px solid rgba(255,255,255,0.4);
+          border-bottom: 1px solid rgba(255,255,255,0.75);
           padding-bottom: 4px;
           transition: all 0.3s;
           display: inline-block;
+          text-shadow: 0 1px 10px rgba(0,0,0,0.75);
         }
         .hero-link:hover {
           color: white;

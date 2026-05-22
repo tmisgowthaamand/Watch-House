@@ -50,8 +50,8 @@ const CustomCursor = () => {
                 target.tagName === 'BUTTON' ||
                 target.closest('a') ||
                 target.closest('button') ||
-                target.classList.contains('clickable') ||
-                window.getComputedStyle(target).cursor === 'pointer'
+                target.closest('[role="button"]') ||
+                target.classList.contains('clickable')
             ) {
                 cursorRef.current.classList.add('hover');
             } else {

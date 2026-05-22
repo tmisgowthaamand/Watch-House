@@ -190,10 +190,10 @@ const Header = () => {
               <form className="login-form">
                 <input type="email" placeholder="Email address" />
                 <input type="password" placeholder="Password" />
-                <a href="#" className="forgot-pw">Forgotten your password?</a>
+                <button type="button" className="forgot-pw">Forgotten your password?</button>
                 <button type="button" className="login-submit">Login</button>
               </form>
-              <a href="#" className="create-acc hover-underline">Create an account</a>
+              <button type="button" className="create-acc hover-underline">Create an account</button>
             </div>
           </div>
         )}
@@ -523,6 +523,13 @@ const Header = () => {
           padding: clamp(12px, 2vw, 15px) 0; margin-bottom: var(--spacing-md); font-family: var(--font-sans); font-size: clamp(14px, 2vw, 14px);
         }
         .forgot-pw { font-size: clamp(10px, 1.5vw, 12px); display: block; margin-bottom: clamp(30px, 5vw, 40px); opacity: 0.6; }
+        .forgot-pw,
+        .create-acc {
+          min-width: 0;
+          min-height: 0;
+          padding: 0;
+          text-align: left;
+        }
         .login-submit {
           width: 100px; background: #1A1A1A; color: white; padding: clamp(10px, 2vw, 12px) 0;
           font-family: var(--font-sans); font-weight: 700; font-size: clamp(10px, 1.5vw, 12px);

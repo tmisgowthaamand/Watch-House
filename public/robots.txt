@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://watch-house-pi.vercel.app/sitemap.xml

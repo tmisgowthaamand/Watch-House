@@ -91,6 +91,7 @@ const Home = () => {
             className="banner-video"
           >
             <source src={houses[activeHouse].video} type="video/mp4" />
+            <track kind="captions" src="/captions.vtt" srcLang="en" label="English captions" default />
           </video>
 
           <div className="houses-overlay">

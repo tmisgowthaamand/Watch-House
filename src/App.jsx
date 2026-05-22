@@ -15,9 +15,13 @@ const Wishlist = lazy(() => import('./pages/Wishlist'));
 const Products = lazy(() => import('./pages/Products'));
 
 const LoadingScreen = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => !window.matchMedia('(max-width: 767px)').matches);
 
   useEffect(() => {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       setLoading(false);
       document.documentElement.classList.remove('show-loading-screen');
@@ -43,6 +47,7 @@ const LoadingScreen = () => {
         .loading-screen.hidden {
           opacity: 0;
           visibility: hidden;
+          pointer-events: none;
         }
         .loading-logo {
           font-family: var(--font-serif);
@@ -53,6 +58,11 @@ const LoadingScreen = () => {
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.5; }
+        }
+        @media (max-width: 767px) {
+          .loading-screen {
+            display: none;
+          }
         }
       `}</style>
     </div>
@@ -75,6 +85,8 @@ function App() {
   useScrollReveal();
 
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
+
     let animationFrameId;
     let isTicking = false;
     let mouseX = 0, mouseY = 0;
