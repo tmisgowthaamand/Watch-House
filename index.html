@@ -3,23 +3,18 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-  <link rel="dns-prefetch" href="https://watchhouse.com" />
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
-    onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap" media="print" onload="this.media='all'" />
   <noscript>
     <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Outfit:wght@400;500;700&display=swap" />
   </noscript>
-  <link rel="preload" as="image" href="/hero-480.avif"
-    imagesrcset="/hero-320.avif 320w, /hero-480.avif 480w, /hero-640.avif 640w"
-    imagesizes="(max-width: 767px) 100vw, 50vw" type="image/avif" fetchpriority="high" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preload" as="image" href="/hero-320.avif" type="image/avif" fetchpriority="high" />
+  <link rel="preload" as="image" href="/hero-480.avif" type="image/avif" fetchpriority="high" />
+
   <meta name="description"
     content="WatchHouse serves modern coffee across distinctive Houses, with coffee beans, pods, subscriptions, locations and stories from the brand." />
   <link rel="canonical" href="https://watch-house-pi.vercel.app/" />
@@ -132,6 +127,16 @@
 
     .section-padding {
       padding: clamp(60px, 10vw, 100px) 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    picture {
+      display: contents;
     }
   </style>
 </head>

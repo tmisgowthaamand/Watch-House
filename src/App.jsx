@@ -1,9 +1,9 @@
-import { Suspense, lazy, useState, useEffect } from 'react';
+import { Suspense, lazy, useState, useEffect, useCallback, startTransition } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import TopBar from './components/TopBar';
-import Header from './components/Header';
 import Home from './pages/Home';
-import useScrollReveal from './hooks/useScrollReveal';
+
+const TopBar = lazy(() => import('./components/TopBar'));
+const Header = lazy(() => import('./components/Header'));
 
 const CustomCursor = lazy(() => import('./components/CustomCursor'));
 const Footer = lazy(() => import('./components/Footer'));
@@ -82,8 +82,75 @@ const PageWrapper = ({ children }) => {
 };
 
 function App() {
-  // Activate global scroll-reveal animations
-  useScrollReveal();
+  // Defer scroll-reveal to after first paint to avoid forced reflow during hydration
+  useEffect(() => {
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(() => {
+        import('./hooks/useScrollReveal');
+      }, { timeout: 2000 });
+      return () => cancelIdleCallback(id);
+    }
+    const t = setTimeout(() => {
+      import('./hooks/useScrollReveal');
+    }, 300);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Deferred scroll-reveal: run AFTER first paint
+  useEffect(() => {
+    let observer;
+    let mutationObs;
+    let debounceTimer;
+
+    const init = () => {
+      const options = { root: null, rootMargin: '0px 0px -60px 0px', threshold: 0.08 };
+
+      const handleIntersect = (entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.dataset.delay || 0;
+            setTimeout(() => el.classList.add('revealed'), Number(delay));
+            obs.unobserve(el);
+          }
+        });
+      };
+
+      observer = new IntersectionObserver(handleIntersect, options);
+
+      const observeElements = () => {
+        const selectors = '.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .reveal-scale:not(.revealed), .reveal-stagger';
+        document.querySelectorAll(selectors).forEach(el => {
+          if (el.classList.contains('reveal-stagger')) {
+            Array.from(el.children).forEach((child, i) => {
+              if (!child.classList.contains('revealed')) {
+                child.classList.add('reveal');
+                child.dataset.delay = String(i * 100);
+                observer.observe(child);
+              }
+            });
+          }
+          observer.observe(el);
+        });
+      };
+
+      observeElements();
+
+      mutationObs = new MutationObserver(() => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(observeElements, 300);
+      });
+      mutationObs.observe(document.body, { childList: true, subtree: true });
+    };
+
+    // Delay initialization until after LCP paints
+    if ('requestIdleCallback' in window) {
+      const id = requestIdleCallback(init, { timeout: 2500 });
+      return () => { cancelIdleCallback(id); observer?.disconnect(); mutationObs?.disconnect(); };
+    }
+    const t = setTimeout(init, 500);
+    return () => { clearTimeout(t); observer?.disconnect(); mutationObs?.disconnect(); };
+  }, []);
 
   useEffect(() => {
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined;
@@ -120,8 +187,12 @@ function App() {
     <Router>
       <div className="app">
         <LoadingScreen />
-        <TopBar />
-        <Header />
+        <Suspense fallback={null}>
+          <TopBar />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Header />
+        </Suspense>
         <PageWrapper>
           <Suspense fallback={null}>
             <CustomCursor />
