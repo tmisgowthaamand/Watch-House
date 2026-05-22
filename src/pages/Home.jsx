@@ -111,7 +111,7 @@ const Home = () => {
             loop
             playsInline
             preload="none"
-            poster="/hero-640.webp"
+            poster="/hero-320.webp"
             className="banner-video"
           >
             {videoInView && <source src={houses[activeHouse].video} type="video/mp4" />}

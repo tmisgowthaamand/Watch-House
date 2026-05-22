@@ -82,20 +82,6 @@ const PageWrapper = ({ children }) => {
 };
 
 function App() {
-  // Defer scroll-reveal to after first paint to avoid forced reflow during hydration
-  useEffect(() => {
-    if ('requestIdleCallback' in window) {
-      const id = requestIdleCallback(() => {
-        import('./hooks/useScrollReveal');
-      }, { timeout: 2000 });
-      return () => cancelIdleCallback(id);
-    }
-    const t = setTimeout(() => {
-      import('./hooks/useScrollReveal');
-    }, 300);
-    return () => clearTimeout(t);
-  }, []);
-
   // Deferred scroll-reveal: run AFTER first paint
   useEffect(() => {
     let observer;
@@ -190,9 +176,11 @@ function App() {
         <TopBar />
         <Header />
         <PageWrapper>
-          <Suspense fallback={null}>
-            <CustomCursor />
-          </Suspense>
+          {typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches && (
+            <Suspense fallback={null}>
+              <CustomCursor />
+            </Suspense>
+          )}
           <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Home />} />

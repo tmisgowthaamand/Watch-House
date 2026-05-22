@@ -130,7 +130,7 @@ const HouseFavourites = () => {
                     <span className="hf-tag"><span className="circ">○</span> Brew. {p.brew}</span>
                     {p.tag && <span className="hf-tag right"><span className="circ">○</span> {p.tag}</span>}
                   </div>
-                  <OptimizedImage src={p.image} alt={p.title} className="hf-img" sizes="(max-width: 640px) 40vw, 180px" />
+                  <OptimizedImage src={p.image} alt={p.title} className="hf-img" sizes="(max-width: 640px) 25vw, 120px" />
                   <Bookmark className="hf-bookmark" size={16} />
                 </div>
                 <div className="hf-info">
